@@ -68,7 +68,6 @@ public class View {
 		frmKpsmart.getContentPane().add(lblPassword);
 		
 		pwdPassword = new JPasswordField();
-		pwdPassword.setText("Sign-In");
 		pwdPassword.setBounds(152, 162, 200, 20);
 		frmKpsmart.getContentPane().add(pwdPassword);
 		
@@ -81,7 +80,8 @@ public class View {
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("Sign-in");
+				//TODO Check if username or pw contain a '|' and throw exception.
+				controller.signIn(textField.getText(), pwdPassword.getPassword());
 			}
 		});
 		btnNewButton.setBounds(152, 193, 89, 23);
