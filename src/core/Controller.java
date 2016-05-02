@@ -1,18 +1,23 @@
 package core;
 
+import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintStream;
+
+import javax.swing.JFrame;
 
 public class Controller {
 	
-	private View view;
-	private BufferedReader reader = null;
+	private Login loginWindow;
+	private MainScreen mainScreenWindow;
 
-	public Controller(View view){
-		this.view = view;
+	public Controller(Login view){
+		this.loginWindow = view;
 		System.out.println("Working Directory = " +
 	              System.getProperty("user.dir"));
 	}
@@ -44,7 +49,11 @@ public class Controller {
 			System.out.println("Error: " + e.getLocalizedMessage());
 		}
 		if(pass){
-			//TODO New window.
+			JFrame jf = loginWindow.getJFrame();
+			jf.setVisible(false);
+			jf.dispatchEvent(new WindowEvent(jf, WindowEvent.WINDOW_CLOSING));
+			jf.dispose();
+			mainScreenWindow = new MainScreen();//TODO New window.
 		}else{
 			Popup.infoBox("Invalid Username or Password!", "Error!");
 		}
@@ -84,12 +93,12 @@ public class Controller {
 	 * @param pw - The password of the user.
 	 */
 	private void addNewUser(String text, String pw) {
-		PrintStream fileStream;
+		FileWriter fileStream;
 		try {
-			fileStream = new PrintStream(new File("logins.txt"));
-			fileStream.println(text + "|" + pw);
+			fileStream = new FileWriter("logins.txt", true);
+			fileStream.append(System.lineSeparator() + text + "|" + pw);
 			fileStream.close();
-		} catch (FileNotFoundException e) {
+		} catch (IOException e) {
 			e.getLocalizedMessage();
 		}
 		Popup.infoBox("You have signed up!", "Congratulations!");

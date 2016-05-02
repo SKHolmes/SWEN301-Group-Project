@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class View {
+public class Login {
 
 	private JFrame frmKpsmart;
 	private JPasswordField pwdPassword;
@@ -26,7 +26,7 @@ public class View {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					View window = new View();
+					Login window = new Login();
 					window.frmKpsmart.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -38,8 +38,13 @@ public class View {
 	/**
 	 * Create the application.
 	 */
-	public View() {
+	public Login() {
 		controller = new Controller(this);
+		initialize();
+	}
+	
+	public Login(Controller c){
+		controller = c;
 		initialize();
 	}
 
@@ -96,5 +101,9 @@ public class View {
 		});
 		btnNewButton_1.setBounds(251, 193, 89, 23);
 		frmKpsmart.getContentPane().add(btnNewButton_1);
+	}
+	
+	public JFrame getJFrame(){
+		return frmKpsmart;		
 	}
 }
