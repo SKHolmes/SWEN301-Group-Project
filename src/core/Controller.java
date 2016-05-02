@@ -49,14 +49,28 @@ public class Controller {
 			System.out.println("Error: " + e.getLocalizedMessage());
 		}
 		if(pass){
-			JFrame jf = loginWindow.getJFrame();
-			jf.setVisible(false);
-			jf.dispatchEvent(new WindowEvent(jf, WindowEvent.WINDOW_CLOSING));
-			jf.dispose();
-			mainScreenWindow = new MainScreen();//TODO New window.
+			openMain(username);
+			closeLogin();
 		}else{
 			Popup.infoBox("Invalid Username or Password!", "Error!");
 		}
+	}
+
+
+
+	private void openMain(String username) {
+		mainScreenWindow = new MainScreen(username);		
+	}
+
+
+
+	private void closeLogin() {
+		JFrame jf = loginWindow.getJFrame();
+		jf.setVisible(false);
+/*		jf.dispatchEvent(new WindowEvent(jf, WindowEvent.WINDOW_CLOSING));
+		System.out.println("Done");
+		This code will exit application for some reason have to close uncleanly.*/
+		jf.dispose();
 	}
 
 
