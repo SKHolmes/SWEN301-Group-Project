@@ -91,7 +91,7 @@ public class View {
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				System.out.println("Register");
+				controller.register(textField.getText(), pwdPassword.getPassword());
 			}
 		});
 		btnNewButton_1.setBounds(251, 193, 89, 23);
