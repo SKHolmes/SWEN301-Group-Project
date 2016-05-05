@@ -12,7 +12,7 @@ import java.io.PrintStream;
 import javax.swing.JFrame;
 
 public class Controller {
-	
+
 	private Login loginWindow;
 	private MainScreen mainScreenWindow;
 
@@ -22,7 +22,7 @@ public class Controller {
 	              System.getProperty("user.dir"));
 	}
 
-	
+
 
 	/**
 	 * @param username - The username of the person attempting to sign in.
@@ -33,10 +33,10 @@ public class Controller {
 	public void signIn(String username, char[] password) {
 		String toCheck = new String(password);
 		Boolean pass = false;
-		
+
 		toCheck = username + "|" + toCheck;
 		try{
-			BufferedReader reader = new BufferedReader(new FileReader("logins.txt"));
+			BufferedReader reader = new BufferedReader(new FileReader("Logins.txt"));
 			String line;
 			while((line = reader.readLine()) != null)
 		    {
@@ -59,7 +59,7 @@ public class Controller {
 
 
 	private void openMain(String username) {
-		mainScreenWindow = new MainScreen(username);		
+		mainScreenWindow = new MainScreen(username);
 	}
 
 
@@ -78,12 +78,12 @@ public class Controller {
 	/**
 	 * @param text - The String of the username attempting to register.
 	 * @param password - The char array of the user's password, safer this way.
-	 * This method simply performs sanity checks on the attempt to register to ensure 
+	 * This method simply performs sanity checks on the attempt to register to ensure
 	 * neither field is empty and the username is still available.
 	 */
 	public void register(String text, char[] password) {
 		String pw = new String(password);
-		
+
 		if(text.isEmpty()){
 			Popup.infoBox("Username field is empty!", "Error!");
 			return;
@@ -116,7 +116,7 @@ public class Controller {
 			e.getLocalizedMessage();
 		}
 		Popup.infoBox("You have signed up!", "Congratulations!");
-	}	
+	}
 
 
 
@@ -141,5 +141,5 @@ public class Controller {
 		}
 		return null;
 	}
-	
+
 }
