@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 public class MainScreen {
 
 	private JFrame frame;
+	private XMLParser parser;
 
 	/**
 	 * Launch the application.
@@ -40,6 +41,8 @@ public class MainScreen {
 	 */
 	public MainScreen(String user) {
 		initialize(user);
+		parser = new XMLParser();
+		
 	}
 
 	/**
