@@ -109,7 +109,7 @@ public class Controller {
 	private void addNewUser(String text, String pw) {
 		FileWriter fileStream;
 		try {
-			fileStream = new FileWriter("logins.txt", true);
+			fileStream = new FileWriter("Logins.txt", true);
 			fileStream.append(System.lineSeparator() + text + "|" + pw);
 			fileStream.close();
 		} catch (IOException e) {
