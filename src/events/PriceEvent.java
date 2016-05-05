@@ -2,9 +2,100 @@ package events;
 
 public class PriceEvent extends Event{
 
-	//Store information here.
+	private String to;
+	private String from;
+	private String priority;
+	private int weightCost;
+	private int volumeCost;
 
-	public PriceEvent(/*Add all params here*/){
-		//TODO Add all parameters as fields to store them.
+
+	public PriceEvent(String to, String from, String priority, int weightCost,
+			int volumeCost){
+
+		this.to = to;
+		this.from = from;
+		this.priority = priority;
+		this.weightCost = weightCost;
+		this.volumeCost = volumeCost;
+	}
+
+
+	/**
+	 * @return the to
+	 */
+	public String getTo() {
+		return to;
+	}
+
+
+	/**
+	 * @param to the to to set
+	 */
+	public void setTo(String to) {
+		this.to = to;
+	}
+
+
+	/**
+	 * @return the from
+	 */
+	public String getFrom() {
+		return from;
+	}
+
+
+	/**
+	 * @param from the from to set
+	 */
+	public void setFrom(String from) {
+		this.from = from;
+	}
+
+
+	/**
+	 * @return the priority
+	 */
+	public String getPriority() {
+		return priority;
+	}
+
+
+	/**
+	 * @param priority the priority to set
+	 */
+	public void setPriority(String priority) {
+		this.priority = priority;
+	}
+
+
+	/**
+	 * @return the weightCost
+	 */
+	public int getWeightCost() {
+		return weightCost;
+	}
+
+
+	/**
+	 * @param weightCost the weightCost to set
+	 */
+	public void setWeightCost(int weightCost) {
+		this.weightCost = weightCost;
+	}
+
+
+	/**
+	 * @return the volumeCost
+	 */
+	public int getVolumeCost() {
+		return volumeCost;
+	}
+
+
+	/**
+	 * @param volumeCost the volumeCost to set
+	 */
+	public void setVolumeCost(int volumeCost) {
+		this.volumeCost = volumeCost;
 	}
 }
