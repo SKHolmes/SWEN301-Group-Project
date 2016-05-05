@@ -33,7 +33,7 @@ public class XMLParser {
 					System.out.println("event is null");
 				}
 		    }
-
+			reader.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
