@@ -62,7 +62,7 @@ public class XMLParser {
 			System.out.println("End of file reached closing up.");
 			break;
 		default:
-			System.out.println("New event!?!? - " + eventType);
+			System.out.println("New event - " + eventType);
 			break;
 		}
 		return null;

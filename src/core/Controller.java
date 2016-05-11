@@ -18,8 +18,8 @@ public class Controller {
 
 	public Controller(Login view){
 		this.loginWindow = view;
-		System.out.println("Working Directory = " +
-	              System.getProperty("user.dir"));
+/*		System.out.println("Working Directory = " +
+	              System.getProperty("user.dir"));*/
 	}
 
 

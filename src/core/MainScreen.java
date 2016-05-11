@@ -51,23 +51,26 @@ public class MainScreen {
 	private void initialize(String user) {
 		frame = new JFrame();
 		frame.setTitle("Welcome back " + user + "!");
-		frame.setBounds(100, 100, 502, 432);
+		frame.setBounds(100, 100, 750, 750);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JToolBar toolBar = new JToolBar();
 		frame.getContentPane().add(toolBar, BorderLayout.NORTH);
 		
-		JButton btnFunction = new JButton("Function 1");
+		JButton btnFunction = new JButton("New Mail Event");
 		toolBar.add(btnFunction);
 		
-		JButton btnNewButton = new JButton("Function 2");
+		JButton btnNewButton = new JButton("New Cost Event");
 		toolBar.add(btnNewButton);
 		
-		JButton btnNewButton_1 = new JButton("Function 3");
+		JButton btnNewButton_1 = new JButton("New Price Event");
 		toolBar.add(btnNewButton_1);
 		
-		JButton btnNewButton_2 = new JButton("Function 4");
+		JButton btnNewButton_2 = new JButton("New Discontinue Event");
 		toolBar.add(btnNewButton_2);
+		
+		JButton btnNewButton_3 = new JButton("New TimeLimit Event");
+		toolBar.add(btnNewButton_3);
 		
 		JTextArea textArea = new JTextArea("This is a non-editable JTextArea. ");
 		textArea.setEditable(false);

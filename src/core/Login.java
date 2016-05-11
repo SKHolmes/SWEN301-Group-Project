@@ -54,7 +54,7 @@ public class Login {
 	private void initialize() {
 		frmKpsmart = new JFrame();
 		frmKpsmart.setTitle("KPSmart");
-		frmKpsmart.setBounds(100, 100, 495, 342);
+		frmKpsmart.setBounds(100, 100, 600, 600);
 		frmKpsmart.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmKpsmart.getContentPane().setLayout(null);
 		
