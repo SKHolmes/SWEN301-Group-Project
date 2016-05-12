@@ -74,15 +74,14 @@ public class MainScreen {
 		
 		JTextArea textArea = new JTextArea("This is a non-editable JTextArea. ");
 		textArea.setEditable(false);
-			textArea.setLineWrap(true);
-			textArea.setWrapStyleWord(true);
+		textArea.setLineWrap(true);
+		textArea.setWrapStyleWord(true);
 			
-			JScrollPane areaScrollPane = new JScrollPane(textArea);
-			areaScrollPane.setVerticalScrollBarPolicy(
-			                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-			areaScrollPane.setPreferredSize(new Dimension(250, 100));
+		JScrollPane areaScrollPane = new JScrollPane(textArea);
+		areaScrollPane.setVerticalScrollBarPolicy(
+		JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		areaScrollPane.setPreferredSize(new Dimension(250, 100));
 			
-		JTextArea textArea2 = new JTextArea();
 		frame.getContentPane().add(areaScrollPane, BorderLayout.SOUTH);
 		
 		frame.setVisible(true);
