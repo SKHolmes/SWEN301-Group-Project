@@ -1,9 +1,13 @@
 package core;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JToolBar;
+
+
 import java.awt.BorderLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -72,6 +76,11 @@ public class MainScreen {
 		JButton btnNewButton_3 = new JButton("New TimeLimit Event");
 		toolBar.add(btnNewButton_3);
 		
+		JButton historyButton = new JButton("History");
+		toolBar.add(historyButton);
+		historyButton.setActionCommand("history");
+		historyButton.addActionListener(new ButtonClickListener());
+		
 		JTextArea textArea = new JTextArea("This is a non-editable JTextArea. ");
 		textArea.setEditable(false);
 		textArea.setLineWrap(true);
@@ -85,6 +94,23 @@ public class MainScreen {
 		frame.getContentPane().add(areaScrollPane, BorderLayout.SOUTH);
 		
 		frame.setVisible(true);
+	}
+	
+	/**
+	 * Handle the button presses
+	 *
+	 */
+	private class ButtonClickListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String command = e.getActionCommand();  
+			
+			if(command.equals("history")){
+				//open the history viewer
+				HistoryWindow historyWindow = new HistoryWindow();
+			}
+		}
 	}
 
 }
