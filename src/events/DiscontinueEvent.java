@@ -1,6 +1,6 @@
 package events;
 
-public class DiscontinueEvent extends Event{
+public class DiscontinueEvent implements Event{
 
 	private String company;
 	private String to;
@@ -70,4 +70,17 @@ public class DiscontinueEvent extends Event{
 	public void setType(String type) {
 		this.type = type;
 	}
+
+	//We may need to specify linebreaks for XML interpretation
+	@Override
+	public String toXML() {
+		String xml = "<discontinue><company>"+company+"</company>";
+		xml.concat("<to>"+to+"</to>");
+		xml.concat("<from>"+from+"</from>");
+		xml.concat("<type>"+type+"</type>");
+		xml.concat("</discontinue>");
+
+		return xml;
+	}
+
 }

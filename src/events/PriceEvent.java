@@ -1,6 +1,6 @@
 package events;
 
-public class PriceEvent extends Event{
+public class PriceEvent implements Event{
 
 	private String to;
 	private String from;
@@ -98,4 +98,18 @@ public class PriceEvent extends Event{
 	public void setVolumeCost(int volumeCost) {
 		this.volumeCost = volumeCost;
 	}
+
+	//We may need to specify linebreaks for XML interpretation
+	@Override
+	public String toXML() {
+		String xml = "<price><to>"+to+"</to>";
+		xml.concat("<from>"+from+"</from>");
+		xml.concat("<priority>"+priority+"</priority>");
+		xml.concat("<weightcost>"+weightCost+"</weightcost>");
+		xml.concat("<volumecost>"+volumeCost+"</volumecost>");
+		xml.concat("</price>");
+
+		return xml;
+	}
+
 }

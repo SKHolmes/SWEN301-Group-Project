@@ -1,6 +1,6 @@
 package events;
 
-public class CostEvent extends Event{
+public class CostEvent implements Event{
 
 	private String company;
 	private String to;
@@ -183,6 +183,26 @@ public class CostEvent extends Event{
 	 */
 	public void setDay(String day) {
 		this.day = day;
+	}
+
+
+	//We may need to specify linebreaks for XML interpretation
+	@Override
+	public String toXML() {
+		String xml = "<cost><company>"+company+"</company>";
+		xml.concat("<to>"+to+"</to>");
+		xml.concat("<from>"+from+"</from>");
+		xml.concat("<type>"+type+"</type>");
+		xml.concat("<weightcost>"+weightCost+"</weightcost>");
+		xml.concat("<volumecost>"+volumeCost+"</volumecost>");
+		xml.concat("<maxWeight>"+maxWeight+"</maxWeight>");
+		xml.concat("<maxVolume>"+maxVolume+"</maxVolume>");
+		xml.concat("<duration>"+duration+"</duration>");
+		xml.concat("<frequency>"+frequency+"</frequency>");
+		xml.concat("<day>"+day+"</day>");
+		xml.concat("</cost>");
+
+		return xml;
 	}
 
 }

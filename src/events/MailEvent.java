@@ -1,6 +1,6 @@
 package events;
 
-public class MailEvent extends Event{
+public class MailEvent implements Event{
 
 	private String day;
 	private String to;
@@ -103,4 +103,18 @@ public class MailEvent extends Event{
 	public void setPriority(String priority) {
 		this.priority = priority;
 	}
+
+	//We may need to specify linebreaks for XML interpretation
+	@Override
+	public String toXML() {
+		String xml = "<mail><day>"+day+"</day>";
+		xml.concat("<to>"+to+"</to>");
+		xml.concat("<from>"+from+"</from>");
+		xml.concat("<weight>"+weight+"</weight>");
+		xml.concat("<volume>"+volume+"</volume>");
+		xml.concat("<priority>"+priority+"</priority>");
+		xml.concat("</mail>");
+		return xml;
+	}
+
 }

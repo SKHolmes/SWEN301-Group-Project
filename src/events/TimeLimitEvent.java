@@ -1,6 +1,6 @@
 package events;
 
-public class TimeLimitEvent extends Event{
+public class TimeLimitEvent implements Event{
 
 	private String to;
 	private String from;
@@ -69,5 +69,17 @@ public class TimeLimitEvent extends Event{
 		public void setMaxDeliveryTime(int maxDeliveryTime) {
 			this.maxDeliveryTime = maxDeliveryTime;
 		}
+
+		@Override
+		public String toXML() {
+			String xml = "<timelimit><to>"+to+"</to>";
+			xml.concat("<from>"+from+"</from>");
+			xml.concat("<priority>"+priority+"</priority>");
+			xml.concat("<maxDeliveryTime>"+maxDeliveryTime+"</maxDeliveryTime>");
+			xml.concat("</timelimit>");
+
+			return xml;
+		}
+
 
 }
