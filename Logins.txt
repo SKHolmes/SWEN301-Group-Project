@@ -1,10 +1,3 @@
-bob|bobspw
-SKHolmes|password
-test2|anotherpassword
-test3|pw
-test4|pw
-test5|anotherpw
-test55|anotherpw
+
+newguy|password
 1|1
-123|123
-dtait|lol
