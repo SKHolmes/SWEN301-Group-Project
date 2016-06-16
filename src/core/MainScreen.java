@@ -7,6 +7,11 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JToolBar;
 
+import events.CostEventWindow;
+import events.DiscontinueEventWindow;
+import events.MailEventWindow;
+import events.PriceEventWindow;
+import events.TimeLimitEventWindow;
 
 import java.awt.BorderLayout;
 import javax.swing.JScrollPane;
@@ -23,6 +28,7 @@ public class MainScreen {
 
 	private JFrame frame;
 	private XMLParser parser;
+	private Controller controller;
 
 	/**
 	 * Launch the application.
@@ -42,11 +48,12 @@ public class MainScreen {
 */
 	/**
 	 * Create the application.
+	 * @param controller 
 	 */
-	public MainScreen(String user) {
+	public MainScreen(String user, Controller controller) {
 		initialize(user);
 		parser = new XMLParser();
-		
+		this.controller = controller;
 	}
 
 	/**
@@ -61,25 +68,37 @@ public class MainScreen {
 		JToolBar toolBar = new JToolBar();
 		frame.getContentPane().add(toolBar, BorderLayout.NORTH);
 		
+		ButtonClickListener BtnListener = new ButtonClickListener();
+		
 		JButton btnFunction = new JButton("New Mail Event");
 		toolBar.add(btnFunction);
+		btnFunction.setActionCommand("mailEvent");
+		btnFunction.addActionListener(BtnListener);
 		
 		JButton btnNewButton = new JButton("New Cost Event");
 		toolBar.add(btnNewButton);
+		btnNewButton.setActionCommand("costEvent");
+		btnNewButton.addActionListener(BtnListener);
 		
 		JButton btnNewButton_1 = new JButton("New Price Event");
 		toolBar.add(btnNewButton_1);
+		btnNewButton_1.setActionCommand("priceEvent");
+		btnNewButton_1.addActionListener(BtnListener);
 		
 		JButton btnNewButton_2 = new JButton("New Discontinue Event");
 		toolBar.add(btnNewButton_2);
+		btnNewButton_2.setActionCommand("discontinueEvent");
+		btnNewButton_2.addActionListener(BtnListener);
 		
 		JButton btnNewButton_3 = new JButton("New TimeLimit Event");
 		toolBar.add(btnNewButton_3);
+		btnNewButton_3.setActionCommand("timeLimitEvent");
+		btnNewButton_3.addActionListener(BtnListener);
 		
 		JButton historyButton = new JButton("History");
 		toolBar.add(historyButton);
 		historyButton.setActionCommand("history");
-		historyButton.addActionListener(new ButtonClickListener());
+		historyButton.addActionListener(BtnListener);
 		
 		JTextArea textArea = new JTextArea("This is a non-editable JTextArea. ");
 		textArea.setEditable(false);
@@ -106,10 +125,30 @@ public class MainScreen {
 		public void actionPerformed(ActionEvent e) {
 			String command = e.getActionCommand();  
 			
-			if(command.equals("history")){
-				//open the history viewer
-				HistoryWindow historyWindow = new HistoryWindow();
-			}
+			switch (command){
+			
+			case "history":
+				new HistoryWindow();
+				break;
+			case "mailEvent":
+				new MailEventWindow(controller);
+				break;
+			case "costEvent":
+				new CostEventWindow(controller);
+				break;
+			case "priceEvent":
+				new PriceEventWindow(controller);
+				break;
+			case "discontinueEvent":
+				new DiscontinueEventWindow(controller);
+				break;
+			case "timeLimitEvent":
+				new TimeLimitEventWindow(controller);
+				break;
+			default:
+				System.out.println("New event? " + command);
+			
+			}			
 		}
 	}
 

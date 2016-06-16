@@ -12,6 +12,10 @@ import java.io.PrintStream;
 import javax.swing.JFrame;
 
 public class Controller {
+	
+	public enum Events{
+		COST, MAIL, DISCONTINUE, PRICE, TIMELIMIT;
+	}
 
 	private Login loginWindow;
 	private MainScreen mainScreenWindow;
@@ -52,14 +56,14 @@ public class Controller {
 			openMain(username);
 			closeLogin();
 		}else{
-			Popup.infoBox("Invalid Username or Password!", "Error!");
+			Popup.infoBox(null, "Invalid Username or Password!", "Error!");
 		}
 	}
 
 
 
 	private void openMain(String username) {
-		mainScreenWindow = new MainScreen(username);
+		mainScreenWindow = new MainScreen(username, this);
 	}
 
 
@@ -85,15 +89,15 @@ public class Controller {
 		String pw = new String(password);
 
 		if(text.isEmpty()){
-			Popup.infoBox("Username field is empty!", "Error!");
+			Popup.infoBox(null, "Username field is empty!", "Error!");
 			return;
 		}
 		if(pw.isEmpty()){
-			Popup.infoBox("Password field is empty", "Error!");
+			Popup.infoBox(null, "Password field is empty", "Error!");
 			return;
 		}
 		if(getPassword(text) != null){
-			Popup.infoBox("Username is already taken try again!", "Error!");
+			Popup.infoBox(null, "Username is already taken try again!", "Error!");
 			return;
 		}
 		addNewUser(text, pw);
@@ -115,7 +119,7 @@ public class Controller {
 		} catch (IOException e) {
 			e.getLocalizedMessage();
 		}
-		Popup.infoBox("You have signed up!", "Congratulations!");
+		Popup.infoBox(null, "You have signed up!", "Congratulations!");
 	}
 
 

@@ -23,14 +23,13 @@ public class XMLParser {
 			BufferedReader reader = new BufferedReader(new FileReader("Database.xml"));
 			String event;
 			header = parseHeader(reader);
-			System.out.println(header);
 			while((event = reader.readLine()) != null)
 		    {
 				Event e = parseNextEvent(reader, event);
 				if(e!=null){
 					events.add(e);
 				}else{
-					System.out.println("event is null");
+					//System.out.println("event is null");
 				}
 		    }
 			reader.close();
@@ -59,7 +58,7 @@ public class XMLParser {
 			return parseDiscontinueEvent(reader);
 
 		case "/simulation":
-			System.out.println("End of file reached closing up.");
+			//System.out.println("End of file reached closing up.");
 			break;
 		default:
 			System.out.println("New event - " + eventType);
@@ -148,7 +147,6 @@ public class XMLParser {
 		StringBuilder sb = new StringBuilder(event);
 		sb.deleteCharAt(0);
 		sb.deleteCharAt(sb.length()-1);
-		System.out.println("parsingEvent = " + "'" + sb.toString() + "'");
 		return sb.toString();
 	}
 

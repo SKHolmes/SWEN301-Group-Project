@@ -1,24 +1,33 @@
 package events;
 
-import javax.swing.JFrame;
+import java.awt.Dialog.ModalityType;
+
+import javax.swing.JDialog;
+
+import core.Controller;
 
 public class DiscontinueEventWindow {
 
 
-	private JFrame frame;
+	private JDialog dialog;
 
 	/**
 	 * Create the application.
+	 * @param controller 
 	 */
-	public DiscontinueEventWindow() {
+	public DiscontinueEventWindow(Controller controller) {
 		initialize();
 	}
 
 	private void initialize() {
-		frame = new JFrame();
-		frame.setTitle("Add a new discontinue event");
-		frame.setBounds(100, 100, 750, 750);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		dialog = new JDialog();
+		dialog.setTitle("Add a new discontinue event");
+		dialog.setBounds(100, 100, 750, 750);
+		dialog.setModal(true);
+		dialog.setAlwaysOnTop(true);
+		dialog.setModalityType(ModalityType.APPLICATION_MODAL);
+		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		dialog.setVisible(true);
 	}
 
 }
