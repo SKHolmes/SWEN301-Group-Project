@@ -80,6 +80,15 @@ public class TimeLimitEvent implements Event{
 
 			return xml;
 		}
+		
+		@Override
+		public String toString() {
+			return "TimelimitEvent" 
+					+ "/To: " + to
+					+ "/From: " + from
+					+ "/Priority: " + priority
+					+ "/Max DeliveryTime: " + maxDeliveryTime;
+		}
 
 
 }

@@ -116,5 +116,15 @@ public class MailEvent implements Event{
 		xml.concat("</mail>");
 		return xml;
 	}
+	
+	public String toString() {
+		return "MailEvent"
+				+ "/Day: " + day
+				+ "/To: " + to
+				+ "/From: " + from
+				+ "/Weight: " + weight
+				+ "/Volume: " + volume
+				+ "/Priority: " + priority;
+	}
 
 }

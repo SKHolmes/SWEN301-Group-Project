@@ -3,10 +3,12 @@ package core;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JToolBar;
 
+import events.Event;
 
 import java.awt.BorderLayout;
 import javax.swing.JScrollPane;
@@ -96,6 +98,10 @@ public class MainScreen {
 		frame.setVisible(true);
 	}
 	
+	public ArrayList<Event> getEvents(){
+		return parser.getEvents();
+	}
+	
 	/**
 	 * Handle the button presses
 	 *
@@ -108,7 +114,7 @@ public class MainScreen {
 			
 			if(command.equals("history")){
 				//open the history viewer
-				HistoryWindow historyWindow = new HistoryWindow();
+				HistoryWindow historyWindow = new HistoryWindow(MainScreen.this);
 			}
 		}
 	}
