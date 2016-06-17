@@ -26,22 +26,16 @@ public class Login {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		//EventQueue.invokeLater(new Runnable() {
-		//	public void run() {
-		//		try {
-		//			Login window = new Login();
-		//			window.frmKpsmart.setVisible(true);
-		//		} catch (Exception e) {
-		//			e.printStackTrace();
-		//		}
-		//	}
-		//});
-		
-		Event e = new DiscontinueEvent("yolo", "yolo", "yolo", "yolo");
-		XMLWriter write = new XMLWriter();
-		
-		write.appendEvent(e.toXML(write.getDoc()));
-		System.out.println("done");
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Login window = new Login();
+					window.frmKpsmart.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 	/**

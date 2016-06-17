@@ -24,6 +24,11 @@ public class XMLWriter {
 	private File XMLfile;
 	private Element root;
 	
+	//Create XMLWriter object
+	//Call XMLWriter.getDoc() and store for later
+	//Call appendEvent(someEvent.toXML(theStoredDoc); to add an event to the log
+	//Note: finishing program does not restore Database.xml to original state and no line breaks which is a bit of a c**t.
+	
 	public XMLWriter(){
 		reinitialize();
 	}
@@ -53,7 +58,8 @@ public class XMLWriter {
 			DOMSource source = new DOMSource(XMLdoc);
 			StreamResult result = new StreamResult(XMLfile);
 			transformer.transform(source, result);
-
+			reinitialize();
+			
 		} catch (TransformerException e1) {
 			e1.printStackTrace();
 		}
