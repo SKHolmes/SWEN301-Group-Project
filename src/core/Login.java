@@ -39,7 +39,8 @@ public class Login {
 		
 		Event e = new DiscontinueEvent("yolo", "yolo", "yolo", "yolo");
 		XMLWriter write = new XMLWriter();
-		write.appendEvent(e.toXML());
+		
+		write.appendEvent(e.toXML(write.getDoc()));
 		System.out.println("done");
 	}
 

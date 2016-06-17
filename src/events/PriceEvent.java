@@ -107,35 +107,26 @@ public class PriceEvent implements Event{
 	}
 
 	@Override
-	public Element toXML() {
+	public Element toXML(Document d) {
+		Document doc = d;
+		Element root = doc.createElement("price");
+		Element child = doc.createElement("to");
+		child.appendChild(doc.createTextNode(this.to));
+		root.appendChild(child);
+		child = doc.createElement("from");
+		child.appendChild(doc.createTextNode(this.from));
+		root.appendChild(child);
+		child = doc.createElement("priority");
+		child.appendChild(doc.createTextNode(this.priority));
+		root.appendChild(child);
+		child = doc.createElement("weightcost");
+		child.appendChild(doc.createTextNode(Integer.toString(this.weightCost)));
+		root.appendChild(child);
+		child = doc.createElement("volumecost");
+		child.appendChild(doc.createTextNode(Integer.toString(this.volumeCost)));
+		root.appendChild(child);
 		
-		try {
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.newDocument();
-			Element root = doc.createElement("price");
-			Element child = doc.createElement("to");
-			child.appendChild(doc.createTextNode(this.to));
-			root.appendChild(child);
-			child = doc.createElement("from");
-			child.appendChild(doc.createTextNode(this.from));
-			root.appendChild(child);
-			child = doc.createElement("priority");
-			child.appendChild(doc.createTextNode(this.priority));
-			root.appendChild(child);
-			child = doc.createElement("weightcost");
-			child.appendChild(doc.createTextNode(Integer.toString(this.weightCost)));
-			root.appendChild(child);
-			child = doc.createElement("volumecost");
-			child.appendChild(doc.createTextNode(Integer.toString(this.volumeCost)));
-			root.appendChild(child);
-			
-			return root;
-			
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-		}
-		return null;
+		return root;
 	}
 
 }

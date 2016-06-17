@@ -1,5 +1,6 @@
 package events;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public interface Event {
@@ -9,6 +10,6 @@ public interface Event {
 	 * @return String
 	 */
 
-	public Element toXML();
+	public Element toXML(Document doc);
 
 }

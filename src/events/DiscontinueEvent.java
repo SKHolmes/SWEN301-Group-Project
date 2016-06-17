@@ -79,33 +79,23 @@ public class DiscontinueEvent implements Event{
 	}
 
 	@Override
-	public Element toXML(){
+	public Element toXML(Document d){
+		Document doc = d;
+		Element root = doc.createElement("discontinue");
+		Element child = doc.createElement("company");
+		child.appendChild(doc.createTextNode(this.company));
+		root.appendChild(child);
+		child = doc.createElement("to");
+		child.appendChild(doc.createTextNode(this.to));
+		root.appendChild(child);
+		child = doc.createElement("from");
+		child.appendChild(doc.createTextNode(this.from));
+		root.appendChild(child);
+		child = doc.createElement("type");
+		child.appendChild(doc.createTextNode(this.type));
+		root.appendChild(child);
 		
-		try {
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.newDocument();
-			Element root = doc.createElement("discontinue");
-			Element child = doc.createElement("company");
-			child.appendChild(doc.createTextNode(this.company));
-			root.appendChild(child);
-			child = doc.createElement("to");
-			child.appendChild(doc.createTextNode(this.to));
-			root.appendChild(child);
-			child = doc.createElement("from");
-			child.appendChild(doc.createTextNode(this.from));
-			root.appendChild(child);
-			child = doc.createElement("type");
-			child.appendChild(doc.createTextNode(this.type));
-			root.appendChild(child);
-			
-			return root;
-			
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-		}
-		
-		return null;
+		return root;
 	}
 
 }

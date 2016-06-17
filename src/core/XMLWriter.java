@@ -58,4 +58,8 @@ public class XMLWriter {
 			e1.printStackTrace();
 		}
 	}
+	
+	public Document getDoc(){
+		return this.XMLdoc;
+	}
 }

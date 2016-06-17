@@ -112,36 +112,30 @@ public class MailEvent implements Event{
 	}
 
 	@Override
-	public Element toXML(){
+	public Element toXML(Document d){
+
+		Document doc = d;
+		Element root = doc.createElement("mail");
+		Element child = doc.createElement("day");
+		child.appendChild(doc.createTextNode(this.day));
+		root.appendChild(child);
+		child = doc.createElement("to");
+		child.appendChild(doc.createTextNode(this.to));
+		root.appendChild(child);
+		child = doc.createElement("from");
+		child.appendChild(doc.createTextNode(this.from));
+		root.appendChild(child);
+		child = doc.createElement("weight");
+		child.appendChild(doc.createTextNode(Integer.toString(this.weight)));
+		root.appendChild(child);
+		child = doc.createElement("volume");
+		child.appendChild(doc.createTextNode(Integer.toString(this.volume)));
+		root.appendChild(child);
+		child = doc.createElement("priority");
+		child.appendChild(doc.createTextNode(this.priority));
+		root.appendChild(child);
 		
-		try {
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.newDocument();
-			Element root = doc.createElement("mail");
-			Element child = doc.createElement("day");
-			child.appendChild(doc.createTextNode(this.day));
-			root.appendChild(child);
-			child = doc.createElement("to");
-			child.appendChild(doc.createTextNode(this.to));
-			root.appendChild(child);
-			child = doc.createElement("from");
-			child.appendChild(doc.createTextNode(this.from));
-			root.appendChild(child);
-			child = doc.createElement("weight");
-			child.appendChild(doc.createTextNode(Integer.toString(this.weight)));
-			root.appendChild(child);
-			child = doc.createElement("volume");
-			child.appendChild(doc.createTextNode(Integer.toString(this.volume)));
-			root.appendChild(child);
-			child = doc.createElement("priority");
-			child.appendChild(doc.createTextNode(this.priority));
-			root.appendChild(child);
-			
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-		}
-		return null;		
+		return root;
 	}
 
 }
