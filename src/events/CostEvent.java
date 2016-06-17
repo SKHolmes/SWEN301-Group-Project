@@ -1,5 +1,12 @@
 package events;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 public class CostEvent implements Event{
 
 	private String company;
@@ -186,23 +193,51 @@ public class CostEvent implements Event{
 	}
 
 
-	//We may need to specify linebreaks for XML interpretation
 	@Override
-	public String toXML() {
-		String xml = "<cost><company>"+company+"</company>";
-		xml.concat("<to>"+to+"</to>");
-		xml.concat("<from>"+from+"</from>");
-		xml.concat("<type>"+type+"</type>");
-		xml.concat("<weightcost>"+weightCost+"</weightcost>");
-		xml.concat("<volumecost>"+volumeCost+"</volumecost>");
-		xml.concat("<maxWeight>"+maxWeight+"</maxWeight>");
-		xml.concat("<maxVolume>"+maxVolume+"</maxVolume>");
-		xml.concat("<duration>"+duration+"</duration>");
-		xml.concat("<frequency>"+frequency+"</frequency>");
-		xml.concat("<day>"+day+"</day>");
-		xml.concat("</cost>");
-
-		return xml;
+	public Element toXML() {
+		
+		try {	
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.newDocument();
+			Element root = doc.createElement("cost");
+			Element child = doc.createElement("company");
+			child.appendChild(doc.createTextNode(this.company));
+			root.appendChild(child);
+			child = doc.createElement("to");
+			child.appendChild(doc.createTextNode(this.to));
+			root.appendChild(child);
+			child = doc.createElement("from");
+			child.appendChild(doc.createTextNode(this.from));
+			root.appendChild(child);
+			child = doc.createElement("type");
+			child.appendChild(doc.createTextNode(this.type));
+			root.appendChild(child);
+			child = doc.createElement("weightcost");
+			child.appendChild(doc.createTextNode(Integer.toString(this.weightCost)));
+			root.appendChild(child);
+			child = doc.createElement("volumecost");
+			child.appendChild(doc.createTextNode(Integer.toString(this.volumeCost)));
+			root.appendChild(child);
+			child = doc.createElement("maxWeight");
+			child.appendChild(doc.createTextNode(Integer.toString(this.maxWeight)));
+			root.appendChild(child);
+			child = doc.createElement("maxVolume");
+			child.appendChild(doc.createTextNode(Integer.toString(this.maxVolume)));
+			root.appendChild(child);
+			child = doc.createElement("duration");
+			child.appendChild(doc.createTextNode(Integer.toString(this.duration)));
+			root.appendChild(child);
+			child = doc.createElement("frequency");
+			child.appendChild(doc.createTextNode(Integer.toString(this.frequency)));
+			root.appendChild(child);
+			child = doc.createElement("day");
+			child.appendChild(doc.createTextNode(this.day));
+			root.appendChild(child);
+			return root;
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
-
 }
