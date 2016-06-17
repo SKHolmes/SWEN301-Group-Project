@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+import events.*;
+
 import java.awt.Font;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
@@ -23,16 +26,21 @@ public class Login {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Login window = new Login();
-					window.frmKpsmart.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		//EventQueue.invokeLater(new Runnable() {
+		//	public void run() {
+		//		try {
+		//			Login window = new Login();
+		//			window.frmKpsmart.setVisible(true);
+		//		} catch (Exception e) {
+		//			e.printStackTrace();
+		//		}
+		//	}
+		//});
+		
+		Event e = new DiscontinueEvent("yolo", "yolo", "yolo", "yolo");
+		XMLWriter write = new XMLWriter();
+		write.appendEvent(e.toXML());
+		System.out.println("done");
 	}
 
 	/**

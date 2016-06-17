@@ -88,11 +88,9 @@ public class TimeLimitEvent implements Event{
 				Element child = doc.createElement("to");
 				child.appendChild(doc.createTextNode(this.to));
 				root.appendChild(child);
-				
 				child = doc.createElement("priority");
 				child.appendChild(doc.createTextNode(this.priority));
 				root.appendChild(child);
-				
 				child = doc.createElement("maxDeliveryTime");
 				child.appendChild(doc.createTextNode(Integer.toString(this.maxDeliveryTime)));
 				root.appendChild(child);
