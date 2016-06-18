@@ -19,9 +19,12 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.TitledBorder;
 
@@ -57,12 +60,18 @@ public class HistoryWindow implements WindowFocusListener, ItemListener{
 	private JCheckBox mailEvent;
 	private JCheckBox priceEvent;
 	private JCheckBox timeLimitEvent;
+	private JSpinner eventChooser;
+	private JButton eventNumButton;
+	private int minIndex;
+	private int maxIndex;
 	
 	public HistoryWindow(MainScreen mainScreen) {
 		index = 0;
 		this.allEvents = mainScreen.getEvents();
 		this.subsetEvents = mainScreen.getEvents();
 		this.mainScreen = mainScreen;
+		this.minIndex = 1;
+		this.maxIndex = subsetEvents.size();
 		showCostEvents = true;
 		showDiscontinueEvents = true;
 		showMailEvents = true;
@@ -74,7 +83,7 @@ public class HistoryWindow implements WindowFocusListener, ItemListener{
 
 	private void initialize() {
 		mainFrame = new JFrame("History");
-		mainFrame.setSize(400, 400);
+		mainFrame.setSize(520, 400);
 		mainFrame.setLayout(new GridLayout(1, 2));
 		mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		mainFrame.addWindowFocusListener(this);
@@ -86,8 +95,14 @@ public class HistoryWindow implements WindowFocusListener, ItemListener{
 	    contentPanel = new JPanel();
 	    contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
 	    contentPanel.setBorder(BorderFactory.createTitledBorder("Event Information"));
-	    addContent(allEvents.get(index));
+	    //if the passed in array of events is zero
+	    if(allEvents.size() < 1){
+	    	displayError("No history to view");
+	    } else {
+	    	addContent(allEvents.get(index));
+	    }
 	    
+	    // create the arrow buttons
 	    JPanel arrowPanel = new JPanel();
 	    arrowPanel.setLayout(new FlowLayout());
 	    
@@ -108,9 +123,28 @@ public class HistoryWindow implements WindowFocusListener, ItemListener{
 	    		TitledBorder.TOP));
 	    controlPanel.add(arrowPanel);
 	    
+	    // create the page num panel
+	    JPanel pageNumPanel = new JPanel();
+	    pageNumPanel.setLayout(new FlowLayout());
+	    
+	    JLabel goToPageLabel = new JLabel("Go to Event ");
+	    
+	    createNumSpinner();
+
+        eventNumButton = new JButton("Go");
+		eventNumButton.setActionCommand("goTo");
+		eventNumButton.addActionListener(new ButtonClickListener());
+		
+		pageNumPanel.add(goToPageLabel);
+        pageNumPanel.add(eventChooser);
+        pageNumPanel.add(eventNumButton);
+        
+        controlPanel.add(pageNumPanel);
+		
+	    
+	    // create the check boxes
 	    JPanel filterPanel = new JPanel();
 	    
-	    //Create the check boxes.
 	    costEvent = new JCheckBox("Cost Events");
 	    costEvent.setSelected(true);
  
@@ -126,7 +160,6 @@ public class HistoryWindow implements WindowFocusListener, ItemListener{
 	    timeLimitEvent = new JCheckBox("Time Limit Events");
 	    timeLimitEvent.setSelected(true);
  
-        //Register a listener for the check boxes.
         costEvent.addItemListener(this);
         discontinueEvent.addItemListener(this);
         mailEvent.addItemListener(this);
@@ -154,6 +187,12 @@ public class HistoryWindow implements WindowFocusListener, ItemListener{
 	    mainFrame.setVisible(true);
 	}
 	
+	private void createNumSpinner() {
+		SpinnerNumberModel numberModel = new SpinnerNumberModel(new Integer(minIndex), 
+				new Integer(minIndex), new Integer(maxIndex), new Integer(1));
+        eventChooser = new JSpinner(numberModel);
+	}
+
 	private class ButtonClickListener implements ActionListener{
 
 		@Override
@@ -168,6 +207,13 @@ public class HistoryWindow implements WindowFocusListener, ItemListener{
 			else if(command.equals("back")){
 				//go back in history
 				index-=1;
+				addContent(subsetEvents.get(index));
+			}
+			else if(command.equals("goTo")){
+				//go to event number eventChooser.getValue()
+				index = (int) eventChooser.getValue();
+				index -=1;
+				System.out.println( (int) eventChooser.getValue());
 				addContent(subsetEvents.get(index));
 			}
 			
@@ -186,6 +232,11 @@ public class HistoryWindow implements WindowFocusListener, ItemListener{
 		} else {
 			forwardButton.setEnabled(true);
 		}
+		if(subsetEvents.size() == 0){
+			eventNumButton.setEnabled(false);
+		} else {
+			eventNumButton.setEnabled(true);
+		}
 	}
 	
 	private void addContent(Event event) {
@@ -201,7 +252,6 @@ public class HistoryWindow implements WindowFocusListener, ItemListener{
 		    contentPanel.add(label);
 		    label.setText(s);
 		    SwingUtilities.updateComponentTreeUI(mainFrame);
-		    System.out.println(index);
 		}
 	}
 
@@ -211,7 +261,12 @@ public class HistoryWindow implements WindowFocusListener, ItemListener{
 		int temp = index;
 		reinitSubset();
 		index = temp;
-		addContent(subsetEvents.get(index));
+		if(subsetEvents.size() > 0){
+			addContent(subsetEvents.get(index));
+		} else {
+			displayError("No history to view");
+		}
+		
 		checkButtons();
 	}
 
@@ -277,9 +332,27 @@ public class HistoryWindow implements WindowFocusListener, ItemListener{
 			}
 		}
 		
-		//refresh the frame
-		addContent(subsetEvents.get(index));
+		//if all are deselected change content label to display 'please choose events to view'
+		if(showCostEvents == false
+				&& showDiscontinueEvents == false
+				&& showMailEvents == false
+				&& showPriceEvents == false
+				&& showTimeLimitEvents == false) {
+			displayError("No history to view");
+		}
+		else {//refresh the frame
+			addContent(subsetEvents.get(index));
+			
+		}
+		
 		checkButtons();
+	}
+	
+	private void displayError(String err) {
+		contentPanel.removeAll();
+		JLabel label1 = new JLabel(err);
+		contentPanel.add(label1);
+		SwingUtilities.updateComponentTreeUI(mainFrame);
 	}
 
 	private void reinitSubset() {
@@ -315,5 +388,7 @@ public class HistoryWindow implements WindowFocusListener, ItemListener{
 		}
 		index = 0;
 		subsetEvents = newSubset;
+		maxIndex = subsetEvents.size();
+		((SpinnerNumberModel) eventChooser.getModel()).setMaximum(new Integer(maxIndex));
 	}
 }
