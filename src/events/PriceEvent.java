@@ -111,5 +111,15 @@ public class PriceEvent implements Event{
 
 		return xml;
 	}
+	
+	@Override
+	public String toString() {
+		return "PriceEvent"
+				+ "/To: " + to
+				+ "/From: " + from
+				+ "/Priority: " + priority
+				+ "/Weight Cost: " + weightCost
+				+ "/Volume Cost: " + volumeCost;
+	}
 
 }

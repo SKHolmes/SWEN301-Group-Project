@@ -204,5 +204,21 @@ public class CostEvent implements Event{
 
 		return xml;
 	}
+	
+	@Override
+	public String toString() {
+		return "CostEvent"
+				+ "/Company: " + company
+				+ "/To: " + to
+				+ "/From: " + from
+				+ "/Type: " + type
+				+ "/Weight Cost: " + weightCost
+				+ "/Volume Cost: " + volumeCost
+				+ "/Max Weight: " + maxWeight
+				+ "/Max Volume: " + maxVolume
+				+ "/Duration: " + duration
+				+ "/Frequency: " + frequency
+				+ "/Day: " + day;
+	}
 
 }

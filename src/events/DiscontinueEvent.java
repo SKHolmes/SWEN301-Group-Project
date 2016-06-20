@@ -82,5 +82,14 @@ public class DiscontinueEvent implements Event{
 
 		return xml;
 	}
+	
+	@Override
+	public String toString() {
+		return "DiscontinueEvent"
+				+ "/Company: " + company
+				+ "/To: " + to
+				+ "/From: " + from
+				+ "/Type: " + type;
+	}
 
 }

@@ -8,5 +8,6 @@ public interface Event {
 	 */
 
 	public String toXML();
+	public String toString();
 
 }
