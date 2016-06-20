@@ -15,10 +15,6 @@ public class BusinessFigures {
 		this.setEvents(model.getEvents());
 	}
 
-	public void setEvents(List<events.Event>  e){
-		this.events = e;
-	}
-
 	public int calcAmountOfMail(){
 		int n = 0;
 		return n;
@@ -46,6 +42,11 @@ public class BusinessFigures {
 	public double calcRevenue(){
 		double rev = 0;
 		return rev;
+	}
+
+
+	public void setEvents(List<events.Event>  e){
+		this.events = e;
 	}
 	public void setModel(Model m){
 		this.model = model;
