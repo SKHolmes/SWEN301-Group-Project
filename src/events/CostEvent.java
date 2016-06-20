@@ -1,5 +1,10 @@
 package events;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import routes.Route;
+
 public class CostEvent implements Event{
 
 	private String company;
@@ -29,6 +34,19 @@ public class CostEvent implements Event{
 		this.duration = duration;
 		this.frequency = frequency;
 		this.day = day;
+	}
+
+	public Route newRoute(ArrayList<Route> routes){
+		Route tmpRoute = new Route(this.from, this.to, this.type, this.company);
+		//check if route exists already
+		for(Route r : routes){
+			if(r.equals(tmpRoute)){
+				//route exits
+				return null;
+			}
+		}
+		routes.add(tmpRoute);
+		return tmpRoute;
 	}
 
 	/**

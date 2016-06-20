@@ -11,14 +11,18 @@ import events.Event;
 import events.MailEvent;
 import events.PriceEvent;
 import events.TimeLimitEvent;
+import routes.Route;
 
 public class XMLParser {
 
 	private String header;
 	private ArrayList<Event> events;
+	private ArrayList<Route> routes;
 
 	public XMLParser(){
 		events = new ArrayList<Event>();
+		routes = new ArrayList<Route>();
+
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader("Database.xml"));
 			String event;
@@ -29,6 +33,22 @@ public class XMLParser {
 				Event e = parseNextEvent(reader, event);
 				if(e!=null){
 					events.add(e);
+					//check for new routes
+					if(e instanceof CostEvent){
+						e = (CostEvent)e;
+						Route r = ((CostEvent) e).newRoute(routes);
+						if(r != null){
+							System.out.println("There is a new route: " + r.getOrigin() + " to " +
+								 r.getDestination() + " via " + r.getType());
+							routes.add(r);
+						}
+					}
+					if(e instanceof DiscontinueEvent){
+						e = (DiscontinueEvent)e;
+						Route tmpRoute = new Route(((DiscontinueEvent) e).getFrom(),
+								((DiscontinueEvent) e).getTo(), ((DiscontinueEvent) e).getType(), ((DiscontinueEvent) e).getCompany());
+						routes.remove(tmpRoute);
+					}
 				}else{
 					System.out.println("event is null");
 				}
@@ -179,5 +199,9 @@ public class XMLParser {
 
 	public ArrayList<Event> getEvents(){
 		return events;
+	}
+
+	public ArrayList<Route> getRoutes(){
+		return routes;
 	}
 }
