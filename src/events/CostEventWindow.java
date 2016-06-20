@@ -50,7 +50,19 @@ public class CostEventWindow {
 		if(empty){
 			Popup.infoBox(dialog, "A field is empty!", "Error!");
 		}else{
-			System.out.println("good to go");
+			CostEvent c = new CostEvent(companyField.getText().trim(),
+			toField.getText().trim(),
+			fromField.getText().trim(),
+			typeField.getText().trim(),
+			Integer.parseInt(weightCostField.getText().trim()),
+			Integer.parseInt(volumeCostField.getText().trim()),
+			Integer.parseInt(maxWeightField.getText().trim()),
+			Integer.parseInt(maxVolumeField.getText().trim()),
+			Integer.parseInt(durationField.getText().trim()),
+			Integer.parseInt(frequencyField.getText().trim()),
+			dayField.getText().trim());
+			
+			controller.addEvent(c);
 		}
 	}
 

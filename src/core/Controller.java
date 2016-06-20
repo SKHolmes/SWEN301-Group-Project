@@ -11,6 +11,9 @@ import java.io.PrintStream;
 
 import javax.swing.JFrame;
 
+import events.CostEvent;
+import events.Event;
+
 public class Controller {
 	
 	public enum Events{
@@ -19,6 +22,7 @@ public class Controller {
 
 	private Login loginWindow;
 	private MainScreen mainScreenWindow;
+	private XMLParser parser;
 
 	public Controller(Login view){
 		this.loginWindow = view;
@@ -144,6 +148,16 @@ public class Controller {
 			System.out.println("Error: " + e.getLocalizedMessage());
 		}
 		return null;
+	}
+
+	public void addEvent(Event e){
+		parser.addEvent(e);
+	}
+
+
+
+	public void setXMLParser(XMLParser parser) {
+		this.parser = parser;		
 	}
 
 }

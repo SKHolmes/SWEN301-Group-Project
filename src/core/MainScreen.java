@@ -1,6 +1,5 @@
 package core;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -17,12 +16,7 @@ import java.awt.BorderLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
-import javax.swing.JTextPane;
-import javax.swing.JPanel;
-import java.awt.Color;
 import java.awt.Dimension;
-
-import javax.swing.JTextField;
 
 public class MainScreen {
 
@@ -54,6 +48,7 @@ public class MainScreen {
 		initialize(user);
 		parser = new XMLParser();
 		this.controller = controller;
+		controller.setXMLParser(parser);
 	}
 
 	/**

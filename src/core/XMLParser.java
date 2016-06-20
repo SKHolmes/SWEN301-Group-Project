@@ -178,4 +178,9 @@ public class XMLParser {
 	public ArrayList<Event> getEvents(){
 		return events;
 	}
+	
+	public void addEvent(Event e){
+		events.add(e);
+		//TODO Append to the Databse.xml file the information for the new event.
+	}
 }
