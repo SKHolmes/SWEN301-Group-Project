@@ -130,7 +130,7 @@ public class MainScreen {
 			switch (command){
 			
 			case "history":
-				new HistoryWindow();
+				new HistoryWindow(controller.getMainScreen());
 				break;
 			case "mailEvent":
 				new MailEventWindow(controller);

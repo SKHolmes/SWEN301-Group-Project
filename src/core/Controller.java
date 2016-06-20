@@ -159,5 +159,9 @@ public class Controller {
 	public void setXMLParser(XMLParser parser) {
 		this.parser = parser;		
 	}
+	
+	public MainScreen getMainScreen(){
+		return this.mainScreenWindow;
+	}
 
 }
