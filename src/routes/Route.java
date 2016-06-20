@@ -7,7 +7,10 @@ public class Route {
 	private String company;
 	private double totalCost;
 	private double totalPrice;
-	private int count;
+	private double totalWeight;
+	private double totalVolume;
+	private double totalMailCount;
+	private double duration;
 
 
 	public Route(String origin, String dest, String type, String company){
@@ -18,14 +21,26 @@ public class Route {
 
 		totalCost = 0;
 		totalPrice = 0;
+		totalWeight = 0;
+		totalVolume = 0;
+		totalMailCount = 0;
+		duration = 0;
 	}
-
-	public void addToTotalCost(double c){
-		this.totalCost += c;
+	//helper for business figures
+	public double getAverageCost(){
+		return totalCost/(double)totalMailCount;
 	}
-
-	public void addToTotalPrice(double c){
-		this.totalPrice += c;
+	public double getAveragePrice(){
+		return totalPrice/(double)totalMailCount;
+	}
+	public double getAverageWeight(){
+		return totalWeight/(double)totalMailCount;
+	}
+	public double getAverageVolume(){
+		return totalVolume/(double)totalMailCount;
+	}
+	public double getAverageDuration(){
+		return duration/(double)totalMailCount;
 	}
 
 	public boolean isEqual(Route r){
@@ -35,13 +50,28 @@ public class Route {
 				&& this.company.equals(r.company));
 	}
 
-	//helper for business figures
-	public double getAverageCost(){
-		return totalCost/count;
+	public void addToTotalCost(double c){
+		this.totalCost += c;
+	}
+	public void addToTotalPrice(double c){
+		this.totalPrice += c;
+	}
+	public void addToTotalWeight(double w){
+		this.totalWeight += w;
+	}
+	public void addToTotalVolume(double v){
+		this.totalVolume += v;
+	}
+	public void addToTotalMailCount(){
+		this.totalMailCount++;
+	}
+	public void addToDuration(double d){
+		this.duration += d;
 	}
 
-	public double getAveragePrice(){
-		return totalPrice/count;
+
+	public String toString(){
+		return this.origin + " to " + this.destination + " via " + this.type + " with " + this.company;
 	}
 
 	/////////////////////////////
@@ -70,5 +100,14 @@ public class Route {
 	}
 	public void setCompany(String company){
 		this.company = company;
+	}
+	public double getTotalWeight() {
+		return totalWeight;
+	}
+	public double getTotalVolume() {
+		return totalVolume;
+	}
+	public double getTotalMailCount() {
+		return totalMailCount;
 	}
 }

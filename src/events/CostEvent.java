@@ -50,7 +50,6 @@ public class CostEvent implements Event{
 				return null;
 			}
 		}
-		routes.add(tmpRoute);
 		return tmpRoute;
 	}
 

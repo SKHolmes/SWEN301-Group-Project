@@ -36,31 +36,42 @@ public class MailEvent implements Event{
 
 	public double calculateCost(ArrayList<Event> events, Route r){
 		//TODO: cheapest route
+		CostEvent cost = getCostEvent(events, r);
+		if(cost != null){
+			return cost.calculateCost(this);
+		}
+		return 0;
+	}
+
+	public CostEvent getCostEvent(ArrayList<Event> events, Route r){
+		//TODO: cheapest route
 		for(int i = events.size()-1; i > 0; i--){
 			if(events.get(i) instanceof CostEvent && r != null){
 				CostEvent e = (CostEvent)events.get(i);
+				//System.out.println("this " + e.getFrom() + " to " + e.getTo() + "  that: " + r.getOrigin() + " to " + r.getDestination());
 				if(e.getFrom().equals(r.getOrigin()) && e.getTo().equals(r.getDestination())){
 					if(e.isValidParcel(this)){
-						System.out.println("Cost: " + e.calculateCost(this));
-						return e.calculateCost(this);
-					} else {
-						System.out.println("Invalid parcel");
+						return e;
 					}
 				}
 			}
 		}
-		//No route
-		System.out.println("No route available for cost");
-		return -1;
+		return null;
 	}
 
 	public double calculatePrice(ArrayList<Event> events, Route r){
 		//TODO: cheapest route
+		//TODO: by priority
 		for(int i = events.size()-1; i > 0; i--){
 			if(events.get(i) instanceof PriceEvent && r != null){
 				PriceEvent e = (PriceEvent)events.get(i);
-				if(e.getFrom().equals(r.getOrigin()) && e.getTo().equals(r.getDestination())){
-					System.out.println("Price: " + e.calculatePrice(this));
+				String origin = r.getOrigin();
+				String destination = r.getDestination();
+				//check origin/destination is in NZ
+				if(isInNZ(r.getOrigin())) origin = "New Zealand";
+				if(isInNZ(r.getDestination())) destination = "New Zealand";
+
+				if(e.getFrom().equals(origin) && e.getTo().equals(destination)){
 					return e.calculatePrice(this);
 				}
 			}
@@ -68,6 +79,27 @@ public class MailEvent implements Event{
 		//No route
 		System.out.println("No route available for price");
 		return -1;
+	}
+
+	//helper to calculate price
+	public boolean isInNZ(String s){
+		return (s.equals("Auckland") || s.equals("Hamilton") || s.equals("Wellington")
+			|| s.equals("Christchurch"));
+	}
+
+	public void updateRouteStats(ArrayList<Event> events, Route r){
+		if(r != null){
+			r.addToTotalCost(calculateCost(events, r));
+			r.addToTotalPrice(calculatePrice(events, r));
+			r.addToTotalVolume((double)this.getVolume());
+			r.addToTotalWeight((double)this.getWeight());
+			r.addToTotalMailCount();
+			CostEvent c = getCostEvent(events, r);
+			if(c != null) {
+				r.addToDuration(c.getDuration());
+				System.out.println("Price: " + calculatePrice(events, r) + "\tCost: " + calculateCost(events,r));
+			}
+		}
 	}
 
 	////////////////////////////////

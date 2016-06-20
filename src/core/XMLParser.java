@@ -39,6 +39,8 @@ public class XMLParser {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+		model.printAllStats();
 	}
 
 	private Event parseNextEvent(BufferedReader reader, String event) throws IOException{
