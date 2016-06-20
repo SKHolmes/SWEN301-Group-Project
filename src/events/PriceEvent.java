@@ -1,5 +1,9 @@
 package events;
 
+import java.util.ArrayList;
+
+import routes.Route;
+
 public class PriceEvent implements Event{
 
 	private String to;
@@ -11,12 +15,15 @@ public class PriceEvent implements Event{
 
 	public PriceEvent(String to, String from, String priority, int weightCost,
 			int volumeCost){
-
 		this.to = to;
 		this.from = from;
 		this.priority = priority;
 		this.weightCost = weightCost;
 		this.volumeCost = volumeCost;
+	}
+
+	public double calculatePrice(MailEvent e){
+		return e.getVolume()*this.volumeCost + e.getWeight()*this.weightCost;
 	}
 
 	////////////////////////////////

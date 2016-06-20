@@ -1,5 +1,9 @@
 package events;
 
+import java.util.ArrayList;
+
+import routes.Route;
+
 public class MailEvent implements Event{
 
 	private String day;
@@ -18,6 +22,52 @@ public class MailEvent implements Event{
 		this.setWeight(weight);
 		this.setVolume(volume);
 		this.setPriority(priority);
+	}
+
+	public Route findRoute(ArrayList<Route> routes){
+		for(Route r : routes){
+			//System.out.println("this " + this.from + " to " + this.to + "  that: " + r.getOrigin() + " to " + r.getDestination());
+			if(this.to.equals(r.getDestination()) && this.from.equals(r.getOrigin())){
+				return r;
+			}
+		}
+		return null;
+	}
+
+	public double calculateCost(ArrayList<Event> events, Route r){
+		//TODO: cheapest route
+		for(int i = events.size()-1; i > 0; i--){
+			if(events.get(i) instanceof CostEvent && r != null){
+				CostEvent e = (CostEvent)events.get(i);
+				if(e.getFrom().equals(r.getOrigin()) && e.getTo().equals(r.getDestination())){
+					if(e.isValidParcel(this)){
+						System.out.println("Cost: " + e.calculateCost(this));
+						return e.calculateCost(this);
+					} else {
+						System.out.println("Invalid parcel");
+					}
+				}
+			}
+		}
+		//No route
+		System.out.println("No route available for cost");
+		return -1;
+	}
+
+	public double calculatePrice(ArrayList<Event> events, Route r){
+		//TODO: cheapest route
+		for(int i = events.size()-1; i > 0; i--){
+			if(events.get(i) instanceof PriceEvent && r != null){
+				PriceEvent e = (PriceEvent)events.get(i);
+				if(e.getFrom().equals(r.getOrigin()) && e.getTo().equals(r.getDestination())){
+					System.out.println("Price: " + e.calculatePrice(this));
+					return e.calculatePrice(this);
+				}
+			}
+		}
+		//No route
+		System.out.println("No route available for price");
+		return -1;
 	}
 
 	////////////////////////////////

@@ -6,12 +6,13 @@ import java.util.List;
 import routes.Route;
 
 public class BusinessFigures {
-
+	Model model;
 	private List<events.Event> events;
 
 	//TODO: Should be able to view business figures during a specific time frame
-	public BusinessFigures(List<events.Event>  events){
-		this.setEvents(events);
+	public BusinessFigures(Model m){
+		this.setModel(m);
+		this.setEvents(model.getEvents());
 	}
 
 	public void setEvents(List<events.Event>  e){
@@ -45,6 +46,12 @@ public class BusinessFigures {
 	public double calcRevenue(){
 		double rev = 0;
 		return rev;
+	}
+	public void setModel(Model m){
+		this.model = model;
+	}
+	public Model getModel(){
+		return this.model;
 	}
 
 

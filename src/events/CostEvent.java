@@ -36,6 +36,11 @@ public class CostEvent implements Event{
 		this.day = day;
 	}
 
+	public double calculateCost(MailEvent e){
+		//TODO: might wanna fine tune this calculation
+		return e.getVolume()*this.volumeCost + e.getWeight()*this.weightCost;
+	}
+
 	public Route newRoute(ArrayList<Route> routes){
 		Route tmpRoute = new Route(this.from, this.to, this.type, this.company);
 		//check if route exists already
@@ -49,6 +54,9 @@ public class CostEvent implements Event{
 		return tmpRoute;
 	}
 
+	public boolean isValidParcel(MailEvent e){
+		return (e.getVolume() <= this.maxVolume && e.getWeight() <= this.maxWeight);
+	}
 
 	////////////////////////////////
 	// 		Getters & Setters 	  //
