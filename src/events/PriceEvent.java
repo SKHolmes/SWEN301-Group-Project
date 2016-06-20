@@ -19,7 +19,6 @@ public class PriceEvent implements Event{
 		this.volumeCost = volumeCost;
 	}
 
-
 	////////////////////////////////
 	// 		Getters & Setters 	  //
 	////////////////////////////////

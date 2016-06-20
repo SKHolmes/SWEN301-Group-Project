@@ -20,86 +20,42 @@ public class MailEvent implements Event{
 		this.setPriority(priority);
 	}
 
-	/**
-	 * @return the day
-	 */
+	////////////////////////////////
+	// 		Getters & Setters 	  //
+	////////////////////////////////
 	public String getDay() {
 		return day;
 	}
-
-	/**
-	 * @param day the day to set
-	 */
 	public void setDay(String day) {
 		this.day = day;
 	}
-
-	/**
-	 * @return the to
-	 */
 	public String getTo() {
 		return to;
 	}
-
-	/**
-	 * @param to the to to set
-	 */
 	public void setTo(String to) {
 		this.to = to;
 	}
-
-	/**
-	 * @return the from
-	 */
 	public String getFrom() {
 		return from;
 	}
-
-	/**
-	 * @param from the from to set
-	 */
 	public void setFrom(String from) {
 		this.from = from;
 	}
-
-	/**
-	 * @return the weight
-	 */
 	public int getWeight() {
 		return weight;
 	}
-
-	/**
-	 * @param weight the weight to set
-	 */
 	public void setWeight(int weight) {
 		this.weight = weight;
 	}
-
-	/**
-	 * @return the volume
-	 */
 	public int getVolume() {
 		return volume;
 	}
-
-	/**
-	 * @param volume the volume to set
-	 */
 	public void setVolume(int volume) {
 		this.volume = volume;
 	}
-
-	/**
-	 * @return the priority
-	 */
 	public String getPriority() {
 		return priority;
 	}
-
-	/**
-	 * @param priority the priority to set
-	 */
 	public void setPriority(String priority) {
 		this.priority = priority;
 	}
