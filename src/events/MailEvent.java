@@ -84,7 +84,7 @@ public class MailEvent implements Event{
 	//helper to calculate price
 	public boolean isInNZ(String s){
 		return (s.equals("Auckland") || s.equals("Hamilton") || s.equals("Wellington")
-			|| s.equals("Christchurch"));
+			|| s.equals("Christchurch") || s.equals("Rotorua") || s.equals("Palmerston North") || s.equals("Dunedin"));
 	}
 
 	public void updateRouteStats(ArrayList<Event> events, Route r){
