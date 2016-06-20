@@ -15,58 +15,31 @@ public class DiscontinueEvent implements Event{
 		this.type = type;
 	}
 
-	/**
-	 * @return the company
-	 */
+	////////////////////////////////
+	// 		Getters & Setters 	  //
+	////////////////////////////////
+
 	public String getCompany() {
 		return company;
 	}
-
-	/**
-	 * @param company the company to set
-	 */
 	public void setCompany(String company) {
 		this.company = company;
 	}
-
-	/**
-	 * @return the to
-	 */
 	public String getTo() {
 		return to;
 	}
-
-	/**
-	 * @param to the to to set
-	 */
 	public void setTo(String to) {
 		this.to = to;
 	}
-
-	/**
-	 * @return the from
-	 */
 	public String getFrom() {
 		return from;
 	}
-
-	/**
-	 * @param from the from to set
-	 */
 	public void setFrom(String from) {
 		this.from = from;
 	}
-
-	/**
-	 * @return the type
-	 */
 	public String getType() {
 		return type;
 	}
-
-	/**
-	 * @param type the type to set
-	 */
 	public void setType(String type) {
 		this.type = type;
 	}
