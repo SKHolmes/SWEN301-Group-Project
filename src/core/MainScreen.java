@@ -2,6 +2,7 @@ package core;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JToolBar;
@@ -11,6 +12,8 @@ import events.DiscontinueEventWindow;
 import events.MailEventWindow;
 import events.PriceEventWindow;
 import events.TimeLimitEventWindow;
+import events.Event;
+
 
 import java.awt.BorderLayout;
 import javax.swing.JScrollPane;
@@ -110,6 +113,10 @@ public class MainScreen {
 		frame.setVisible(true);
 	}
 	
+	public ArrayList<Event> getEvents(){
+		return parser.getEvents();
+	}
+	
 	/**
 	 * Handle the button presses
 	 *
@@ -143,7 +150,8 @@ public class MainScreen {
 			default:
 				System.out.println("New event? " + command);
 			
-			}			
+			}		
+
 		}
 	}
 
