@@ -9,6 +9,7 @@ public class Node {
 	private ArrayList<Edge> edges;
 	private int distance;
 	private Node previous;
+	private Edge previousEdge;
 	
 	public Node(String n){
 		this.name = n;
@@ -52,5 +53,13 @@ public class Node {
 	
 	public ArrayList<Edge> getEdges(){
 		return edges;
+	}
+
+	public void setPreviousEdge(Edge e) {
+		this.previousEdge = e;		
+	}
+	
+	public Edge getPreviousEdge(){
+		return previousEdge;
 	}
 }
