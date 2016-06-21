@@ -1,12 +1,8 @@
 package events;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import java.util.ArrayList;
 
 import routes.Route;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

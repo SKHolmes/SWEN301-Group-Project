@@ -1,9 +1,5 @@
 package events;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.w3c.dom.Document;
 import java.util.ArrayList;
 import java.util.List;
@@ -174,5 +170,21 @@ public class CostEvent implements Event{
 		root.appendChild(child);
 		
 		return root;
+	}
+	
+	@Override
+		public String toString() {
+			return "CostEvent"
+					+ "/Company: " + company
+					+ "/To: " + to
+					+ "/From: " + from
+					+ "/Type: " + type
+					+ "/Weight Cost: " + weightCost
+					+ "/Volume Cost: " + volumeCost
+					+ "/Max Weight: " + maxWeight
+					+ "/Max Volume: " + maxVolume
+					+ "/Duration: " + duration
+					+ "/Frequency: " + frequency
+					+ "/Day: " + day;
 	}
 }
