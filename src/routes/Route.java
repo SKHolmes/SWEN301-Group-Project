@@ -69,7 +69,7 @@ public class Route {
 		this.duration += d;
 	}
 	public String toString(){
-		return "[r: "+this.origin+"->"+this.destination+"]";
+		return "[r: "+this.origin+"->"+this.destination+" c:"+this.company+"]";
 	}
 
 	/////////////////////////////

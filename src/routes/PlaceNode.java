@@ -33,4 +33,15 @@ public class PlaceNode {
 			System.out.println(edges.get(p).toString());
 		}
 	}
+
+	public boolean equals(PlaceNode other){
+		return this.name.equals(other.getName());
+	}
+
+	public boolean hasChild(PlaceNode newD) {
+		for(PlaceNode p: edges.keySet()){
+			if(p.equals(newD)){return true;}
+		}
+		return false;
+	}
 }

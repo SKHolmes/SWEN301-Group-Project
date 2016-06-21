@@ -45,6 +45,11 @@ public class Map {
 				check = addNode(temp1, temp2 ,p, r);
 			}
 
+			if (!check){
+				temp1.addChild(temp2, r); //add destination to children of origin
+				nodes.add(temp1);		//add origin node to nodes
+			}
+
 		}
 		//TODO
 		printNodes();
@@ -64,17 +69,14 @@ public class Map {
 
 	private boolean addNode(PlaceNode newO, PlaceNode newD , PlaceNode p, Route r) {
 
-		if(newO.equals(p)){	//if the origin is already there
-			if(newO.getChildren().containsKey(newD)){ //and the node to route mapping is already there
+		if(newO.equals(p)){	//if this iteration is the same node
+			if(p.hasChild(newD)){ //and the node to route mapping is already there
 				return true;	//origin node present and destination exist within children map so exit
 				}
 			else{
-				newO.addChild(newD, r);	//else origin exist with no dest child so add to map
+				p.addChild(newD, r);	//else origin exist with no dest child so add to map
+				return true;
 			}
-		}
-		else {	//Origin node not present
-			newO.addChild(newD, r); //add destination to children of origin
-			nodes.add(newO);		//add origin node to nodes
 		}
 		return false;
 	}
