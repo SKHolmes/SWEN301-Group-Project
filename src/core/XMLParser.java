@@ -187,4 +187,8 @@ public class XMLParser {
 	public ArrayList<Event> getEvents(){
 		return model.getEvents();
 	}
+	
+	public Model getModel(){
+		return model;
+	}
 }

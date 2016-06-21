@@ -116,6 +116,10 @@ public class MainScreen {
 	public ArrayList<Event> getEvents(){
 		return parser.getEvents();
 	}
+	
+	public Model getModel(){
+		return parser.getModel();
+	}
 
 	/**
 	 * Handle the button presses
@@ -154,5 +158,5 @@ public class MainScreen {
 
 		}
 	}
-
+	
 }
