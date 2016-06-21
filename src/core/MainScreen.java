@@ -45,7 +45,7 @@ public class MainScreen {
 */
 	/**
 	 * Create the application.
-	 * @param controller 
+	 * @param controller
 	 */
 	public MainScreen(String user, Controller controller) {
 		initialize(user);
@@ -62,61 +62,61 @@ public class MainScreen {
 		frame.setTitle("Welcome back " + user + "!");
 		frame.setBounds(100, 100, 750, 750);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		JToolBar toolBar = new JToolBar();
 		frame.getContentPane().add(toolBar, BorderLayout.NORTH);
-		
+
 		ButtonClickListener BtnListener = new ButtonClickListener();
-		
+
 		JButton btnFunction = new JButton("New Mail Event");
 		toolBar.add(btnFunction);
 		btnFunction.setActionCommand("mailEvent");
 		btnFunction.addActionListener(BtnListener);
-		
+
 		JButton btnNewButton = new JButton("New Cost Event");
 		toolBar.add(btnNewButton);
 		btnNewButton.setActionCommand("costEvent");
 		btnNewButton.addActionListener(BtnListener);
-		
+
 		JButton btnNewButton_1 = new JButton("New Price Event");
 		toolBar.add(btnNewButton_1);
 		btnNewButton_1.setActionCommand("priceEvent");
 		btnNewButton_1.addActionListener(BtnListener);
-		
+
 		JButton btnNewButton_2 = new JButton("New Discontinue Event");
 		toolBar.add(btnNewButton_2);
 		btnNewButton_2.setActionCommand("discontinueEvent");
 		btnNewButton_2.addActionListener(BtnListener);
-		
+
 		JButton btnNewButton_3 = new JButton("New TimeLimit Event");
 		toolBar.add(btnNewButton_3);
 		btnNewButton_3.setActionCommand("timeLimitEvent");
 		btnNewButton_3.addActionListener(BtnListener);
-		
+
 		JButton historyButton = new JButton("History");
 		toolBar.add(historyButton);
 		historyButton.setActionCommand("history");
 		historyButton.addActionListener(BtnListener);
-		
+
 		JTextArea textArea = new JTextArea("This is a non-editable JTextArea. ");
 		textArea.setEditable(false);
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
-			
+
 		JScrollPane areaScrollPane = new JScrollPane(textArea);
 		areaScrollPane.setVerticalScrollBarPolicy(
 		JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		areaScrollPane.setPreferredSize(new Dimension(250, 100));
-			
+
 		frame.getContentPane().add(areaScrollPane, BorderLayout.SOUTH);
-		
+
 		frame.setVisible(true);
 	}
-	
+
 	public ArrayList<Event> getEvents(){
 		return parser.getEvents();
 	}
-	
+
 	/**
 	 * Handle the button presses
 	 *
@@ -125,10 +125,10 @@ public class MainScreen {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String command = e.getActionCommand();  
-			
+			String command = e.getActionCommand();
+
 			switch (command){
-			
+
 			case "history":
 				new HistoryWindow(controller.getMainScreen());
 				break;
@@ -149,8 +149,8 @@ public class MainScreen {
 				break;
 			default:
 				System.out.println("New event? " + command);
-			
-			}		
+
+			}
 
 		}
 	}

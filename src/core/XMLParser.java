@@ -11,14 +11,16 @@ import events.Event;
 import events.MailEvent;
 import events.PriceEvent;
 import events.TimeLimitEvent;
+import routes.Route;
 
 public class XMLParser {
 
 	private String header;
-	private ArrayList<Event> events;
+	private Model model;
 
 	public XMLParser(){
-		events = new ArrayList<Event>();
+		model = new Model();
+
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader("Database.xml"));
 			String event;
@@ -27,7 +29,7 @@ public class XMLParser {
 		    {
 				Event e = parseNextEvent(reader, event);
 				if(e!=null){
-					events.add(e);
+					model.addEvent(e);
 				}else{
 					//System.out.println("event is null");
 				}
@@ -36,6 +38,8 @@ public class XMLParser {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+		model.printAllStats();
 	}
 
 	private Event parseNextEvent(BufferedReader reader, String event) throws IOException{
@@ -175,12 +179,12 @@ public class XMLParser {
 		this.header = header;
 	}
 
-	public ArrayList<Event> getEvents(){
-		return events;
-	}
-	
 	public void addEvent(Event e){
-		events.add(e);
+		model.addEvent(e);
 		//TODO Append to the Databse.xml file the information for the new event.
+	}
+
+	public ArrayList<Event> getEvents(){
+		return model.getEvents();
 	}
 }

@@ -3,6 +3,9 @@ package events;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.util.ArrayList;
+
+import routes.Route;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -27,86 +30,120 @@ public class MailEvent implements Event{
 		this.setPriority(priority);
 	}
 
-	/**
-	 * @return the day
-	 */
+	public Route findRoute(ArrayList<Route> routes){
+		for(Route r : routes){
+			//System.out.println("this " + this.from + " to " + this.to + "  that: " + r.getOrigin() + " to " + r.getDestination());
+			if(this.to.equals(r.getDestination()) && this.from.equals(r.getOrigin())){
+				return r;
+			}
+		}
+		return null;
+	}
+
+	public double calculateCost(ArrayList<Event> events, Route r){
+		//TODO: cheapest route
+		CostEvent cost = getCostEvent(events, r);
+		if(cost != null){
+			return cost.calculateCost(this);
+		}
+		return 0;
+	}
+
+	public CostEvent getCostEvent(ArrayList<Event> events, Route r){
+		//TODO: cheapest route
+		for(int i = events.size()-1; i > 0; i--){
+			if(events.get(i) instanceof CostEvent && r != null){
+				CostEvent e = (CostEvent)events.get(i);
+				//System.out.println("this " + e.getFrom() + " to " + e.getTo() + "  that: " + r.getOrigin() + " to " + r.getDestination());
+				if(e.getFrom().equals(r.getOrigin()) && e.getTo().equals(r.getDestination())){
+					if(e.isValidParcel(this)){
+						return e;
+					}
+				}
+			}
+		}
+		return null;
+	}
+
+	public double calculatePrice(ArrayList<Event> events, Route r){
+		//TODO: cheapest route
+		//TODO: by priority
+		for(int i = events.size()-1; i > 0; i--){
+			if(events.get(i) instanceof PriceEvent && r != null){
+				PriceEvent e = (PriceEvent)events.get(i);
+				String origin = r.getOrigin();
+				String destination = r.getDestination();
+				//check origin/destination is in NZ
+				if(isInNZ(r.getOrigin())) origin = "New Zealand";
+				if(isInNZ(r.getDestination())) destination = "New Zealand";
+
+				if(e.getFrom().equals(origin) && e.getTo().equals(destination)){
+					return e.calculatePrice(this);
+				}
+			}
+		}
+		//No route
+		System.out.println("No route available for price");
+		return -1;
+	}
+
+	//helper to calculate price
+	public boolean isInNZ(String s){
+		return (s.equals("Auckland") || s.equals("Hamilton") || s.equals("Wellington")
+			|| s.equals("Christchurch") || s.equals("Rotorua") || s.equals("Palmerston North") || s.equals("Dunedin"));
+	}
+
+	public void updateRouteStats(ArrayList<Event> events, Route r){
+		if(r != null){
+			r.addToTotalCost(calculateCost(events, r));
+			r.addToTotalPrice(calculatePrice(events, r));
+			r.addToTotalVolume((double)this.getVolume());
+			r.addToTotalWeight((double)this.getWeight());
+			r.addToTotalMailCount();
+			CostEvent c = getCostEvent(events, r);
+			if(c != null) {
+				r.addToDuration(c.getDuration());
+				System.out.println("Price: " + calculatePrice(events, r) + "\tCost: " + calculateCost(events,r));
+			}
+		}
+	}
+
+	////////////////////////////////
+	// 		Getters & Setters 	  //
+	////////////////////////////////
 	public String getDay() {
 		return day;
 	}
-
-	/**
-	 * @param day the day to set
-	 */
 	public void setDay(String day) {
 		this.day = day;
 	}
-
-	/**
-	 * @return the to
-	 */
 	public String getTo() {
 		return to;
 	}
-
-	/**
-	 * @param to the to to set
-	 */
 	public void setTo(String to) {
 		this.to = to;
 	}
-
-	/**
-	 * @return the from
-	 */
 	public String getFrom() {
 		return from;
 	}
-
-	/**
-	 * @param from the from to set
-	 */
 	public void setFrom(String from) {
 		this.from = from;
 	}
-
-	/**
-	 * @return the weight
-	 */
 	public int getWeight() {
 		return weight;
 	}
-
-	/**
-	 * @param weight the weight to set
-	 */
 	public void setWeight(int weight) {
 		this.weight = weight;
 	}
-
-	/**
-	 * @return the volume
-	 */
 	public int getVolume() {
 		return volume;
 	}
-
-	/**
-	 * @param volume the volume to set
-	 */
 	public void setVolume(int volume) {
 		this.volume = volume;
 	}
-
-	/**
-	 * @return the priority
-	 */
 	public String getPriority() {
 		return priority;
 	}
-
-	/**
-	 * @param priority the priority to set
-	 */
 	public void setPriority(String priority) {
 		this.priority = priority;
 	}
