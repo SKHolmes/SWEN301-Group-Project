@@ -153,7 +153,9 @@ public class Controller {
 		writer.appendEvent(e.toXML(writer.getDoc()));
 	}
 
-
+	public void print(String s){
+		this.mainScreenWindow.appendText(s);
+	}
 
 	public void setXMLParser(XMLParser parser) {
 		this.parser = parser;

@@ -26,6 +26,7 @@ public class MainScreen {
 	private JFrame frame;
 	private XMLParser parser;
 	private Controller controller;
+	private JTextArea textArea;
 
 	/**
 	 * Launch the application.
@@ -98,7 +99,7 @@ public class MainScreen {
 		historyButton.setActionCommand("history");
 		historyButton.addActionListener(BtnListener);
 
-		JTextArea textArea = new JTextArea("This is a non-editable JTextArea. ");
+		textArea = new JTextArea("Welcome!");
 		textArea.setEditable(false);
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
@@ -115,6 +116,10 @@ public class MainScreen {
 
 	public ArrayList<Event> getEvents(){
 		return parser.getEvents();
+	}
+	
+	public void appendText(String s){
+		this.textArea.append(s);
 	}
 	
 	public Model getModel(){
