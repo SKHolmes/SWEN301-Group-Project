@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package core;
 
@@ -66,7 +66,7 @@ public class HistoryWindow implements WindowFocusListener, ItemListener{
 	private int minIndex;
 	private int maxIndex;
 	private Model model;
-	
+
 	public HistoryWindow(MainScreen mainScreen) {
 		index = 0;
 		this.allEvents = mainScreen.getEvents();
@@ -80,7 +80,7 @@ public class HistoryWindow implements WindowFocusListener, ItemListener{
 		showPriceEvents = true;
 		showTimeLimitEvents = true;
 		model = new Model(subsetEvents.subList(0, index+1));
-		
+
 		initialize();
 	}
 
@@ -90,129 +90,129 @@ public class HistoryWindow implements WindowFocusListener, ItemListener{
 		mainFrame.setLayout(new GridLayout(1, 3));
 		mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		mainFrame.addWindowFocusListener(this);
-		
+
 		controlPanel = new JPanel();
 		controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
 		controlPanel.setBorder(BorderFactory.createTitledBorder("Controls"));
-		
+
 	    contentPanel = new JPanel();
 	    contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
 	    contentPanel.setBorder(BorderFactory.createTitledBorder("Event Information"));
-	    
+
 	    businessFiguresPanel = new JPanel();
 	    businessFiguresPanel.setLayout(new BoxLayout(businessFiguresPanel, BoxLayout.Y_AXIS));
 	    businessFiguresPanel.setBorder(BorderFactory.createTitledBorder("Business Figures"));
-	    
+
 	    //if the passed in array of events is zero
 	    if(allEvents.size() < 1){
 	    	displayError("No history to view");
 	    } else {
 	    	addContent(allEvents.get(index));
 	    }
-	    
+
 	    // create the arrow buttons
 	    JPanel arrowPanel = new JPanel();
 	    arrowPanel.setLayout(new FlowLayout());
-	    
+
 	    forwardButton = new JButton(">");
 	    forwardButton.setActionCommand("forward");
 	    forwardButton.addActionListener(new ButtonClickListener());
-	    
+
 	    backButton = new JButton("<");
 	    backButton.setActionCommand("back");
 	    backButton.addActionListener(new ButtonClickListener());
 	    backButton.setEnabled(false);
-	    
+
 	    arrowPanel.add(backButton);
 	    arrowPanel.add(forwardButton);
-	    arrowPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), 
-	    		"Navigation", 
+	    arrowPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
+	    		"Navigation",
 	    		TitledBorder.CENTER,
 	    		TitledBorder.TOP));
 	    controlPanel.add(arrowPanel);
-	    
+
 	    // create the page num panel
 	    JPanel pageNumPanel = new JPanel();
 	    pageNumPanel.setLayout(new FlowLayout());
-	    
+
 	    JLabel goToPageLabel = new JLabel("Go to Event ");
-	    
+
 	    createNumSpinner();
 
         eventNumButton = new JButton("Go");
 		eventNumButton.setActionCommand("goTo");
 		eventNumButton.addActionListener(new ButtonClickListener());
-		
+
 		pageNumPanel.add(goToPageLabel);
         pageNumPanel.add(eventChooser);
         pageNumPanel.add(eventNumButton);
-        
+
         controlPanel.add(pageNumPanel);
-		
-	    
+
+
 	    // create the check boxes
 	    JPanel filterPanel = new JPanel();
-	    
+
 	    costEvent = new JCheckBox("Cost Events");
 	    costEvent.setSelected(true);
- 
+
 	    discontinueEvent = new JCheckBox("Discontinue Events");
 	    discontinueEvent.setSelected(true);
- 
+
 	    mailEvent = new JCheckBox("Mail Events");
 	    mailEvent.setSelected(true);
- 
+
 	    priceEvent = new JCheckBox("Price Events");
 	    priceEvent.setSelected(true);
-        
+
 	    timeLimitEvent = new JCheckBox("Time Limit Events");
 	    timeLimitEvent.setSelected(true);
- 
+
         costEvent.addItemListener(this);
         discontinueEvent.addItemListener(this);
         mailEvent.addItemListener(this);
         priceEvent.addItemListener(this);
         timeLimitEvent.addItemListener(this);
-        
+
         JPanel checkPanel = new JPanel(new GridLayout(0, 1));
         checkPanel.add(costEvent);
         checkPanel.add(discontinueEvent);
         checkPanel.add(mailEvent);
         checkPanel.add(priceEvent);
         checkPanel.add(timeLimitEvent);
-	    
+
         filterPanel.add(checkPanel);
-	    filterPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), 
-				"Filters", 
+	    filterPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
+				"Filters",
 				TitledBorder.CENTER,
 				TitledBorder.TOP));
 	    controlPanel.add(filterPanel);
-	    
+
 	    //add stuff to business figure panel
 	    addBusinessFigures();
-	    
+
 	    //add panels to main window
 	    mainFrame.add(controlPanel);
 	    mainFrame.add(contentPanel);
 	    mainFrame.add(businessFiguresPanel);
-	    
+
 	    mainFrame.setVisible(true);
 	}
-	
+
 	private void addBusinessFigures() {
 		businessFiguresPanel.removeAll();
-		
+
 		JLabel revenue = new JLabel("Expenditure: " + model.getRevenue());
 		JLabel expenditure = new JLabel("Revenue: " + model.getExpenditure());
 		JLabel nEvents = new JLabel("Number of Events: " + model.getNumberOfEvents());
 		JLabel nMail = new JLabel("Number of Mail: ");
 		JLabel avgDeliveryTimes = new JLabel("Average Delivery Times: ");
 		JLabel critRoutes = new JLabel("Critical Routes: ");
-		
+
 		businessFiguresPanel.add(revenue);
 		businessFiguresPanel.add(expenditure);
 		businessFiguresPanel.add(nEvents);
-		
+
 		businessFiguresPanel.add(Box.createRigidArea(new Dimension(10,10)));
 		businessFiguresPanel.add(nMail);
 		String data = model.calcAmountOfMail();
@@ -222,7 +222,7 @@ public class HistoryWindow implements WindowFocusListener, ItemListener{
 			businessFiguresPanel.add(label);
 		    label.setText(s);
 		}
-		
+
 		businessFiguresPanel.add(Box.createRigidArea(new Dimension(10,10)));
 		businessFiguresPanel.add(avgDeliveryTimes);
 		data = model.calcAverageDeliveryTime();
@@ -234,14 +234,16 @@ public class HistoryWindow implements WindowFocusListener, ItemListener{
 		}
 		businessFiguresPanel.add(Box.createRigidArea(new Dimension(10,10)));
 		businessFiguresPanel.add(critRoutes);
-		for(Route r : model.calcCriticalRoutes()){
-			JLabel label = new JLabel(" * "+r.toString());
+		data = model.criticalRoutesToString(model.calcCriticalRoutes());
+		bits = data.split("/");
+		for(String s : bits){
+			JLabel label = new JLabel(s);
 			businessFiguresPanel.add(label);
 		}
 	}
 
 	private void createNumSpinner() {
-		SpinnerNumberModel numberModel = new SpinnerNumberModel(new Integer(minIndex), 
+		SpinnerNumberModel numberModel = new SpinnerNumberModel(new Integer(minIndex),
 				new Integer(minIndex), new Integer(maxIndex), new Integer(1));
         eventChooser = new JSpinner(numberModel);
 	}
@@ -250,8 +252,8 @@ public class HistoryWindow implements WindowFocusListener, ItemListener{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String command = e.getActionCommand();  
-			
+			String command = e.getActionCommand();
+
 			if(command.equals("forward")){
 				//go forward in history
 				index+=1;
@@ -273,11 +275,11 @@ public class HistoryWindow implements WindowFocusListener, ItemListener{
 				System.out.println( (int) eventChooser.getValue());
 				addContent(subsetEvents.get(index));
 			}
-			
+
 			checkButtons();
 		}
 	}
-	
+
 	private void checkButtons() {
 		if(index > 0){
 			backButton.setEnabled(true);
@@ -295,7 +297,7 @@ public class HistoryWindow implements WindowFocusListener, ItemListener{
 			eventNumButton.setEnabled(true);
 		}
 	}
-	
+
 	private void addContent(Event event) {
 		String data = event.toString();
 		contentPanel.removeAll();
@@ -303,7 +305,7 @@ public class HistoryWindow implements WindowFocusListener, ItemListener{
 		JLabel label1 = new JLabel("Viewing event number: " +  (index+1));
 		contentPanel.add(label1);
 		contentPanel.add(Box.createRigidArea(new Dimension(10,10)));
-		
+
 		for(String s : bits){
 			JLabel label = new JLabel(s);
 		    contentPanel.add(label);
@@ -323,21 +325,21 @@ public class HistoryWindow implements WindowFocusListener, ItemListener{
 		} else {
 			displayError("No history to view");
 		}
-		
+
 		checkButtons();
 	}
 
 	@Override
 	public void windowLostFocus(WindowEvent arg0) {
 		// not used
-				
+
 	}
 
 	@Override
 	public void itemStateChanged(ItemEvent arg0) {
 		//set boolean values when changed
 		Object checkBox = arg0.getItemSelectable();
-		
+
 		if(checkBox == costEvent){
 			if(arg0.getStateChange() == ItemEvent.DESELECTED){
 				showCostEvents = false;
@@ -388,7 +390,7 @@ public class HistoryWindow implements WindowFocusListener, ItemListener{
 				reinitSubset();
 			}
 		}
-		
+
 		//if all are deselected change content label to display 'please choose events to view'
 		if(showCostEvents == false
 				&& showDiscontinueEvents == false
@@ -399,12 +401,12 @@ public class HistoryWindow implements WindowFocusListener, ItemListener{
 		}
 		else {//refresh the frame
 			addContent(subsetEvents.get(index));
-			
+
 		}
-		
+
 		checkButtons();
 	}
-	
+
 	private void displayError(String err) {
 		contentPanel.removeAll();
 		JLabel label1 = new JLabel(err);
@@ -414,7 +416,7 @@ public class HistoryWindow implements WindowFocusListener, ItemListener{
 
 	private void reinitSubset() {
 		ArrayList<Event> newSubset = new ArrayList<Event>();
-		
+
 		for(Event event : allEvents){
 			//add to new subset if its boolean is true
 			if(event instanceof CostEvent){

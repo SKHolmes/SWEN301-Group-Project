@@ -116,8 +116,9 @@ public class Model {
 	public String criticalRoutesToString(List<Route> routes){
 		String s = "";
 		for(Route r : routes){
-			s+= r.toString() + " Loss: $" + (r.getAveragePrice() - r.getAverageCost()) * -1;
+			s+= " * " + r.toString() + "   Loss: $" + (r.getAveragePrice() - r.getAverageCost()) * -1 + "/";
 		}
+
 		return s;
 	}
 
