@@ -25,7 +25,14 @@ public class PriceEvent implements Event{
 	}
 
 	public double calculatePrice(MailEvent e){
-		return e.getVolume()*this.volumeCost + e.getWeight()*this.weightCost;
+		return e.getVolume()*this.volumeCost + e.getWeight()*this.weightCost + getPriorityCost(this.priority);
+	}
+
+	public int getPriorityCost(String s){
+		if(s.equals("International Air")) return 20;
+		else if(s.equals("International Standard")) return 10;
+		else if(s.equals("Domestic Air")) return 5;
+		else return 0;
 	}
 
 	////////////////////////////////
@@ -81,10 +88,10 @@ public class PriceEvent implements Event{
 		child = doc.createElement("volumecost");
 		child.appendChild(doc.createTextNode(Integer.toString(this.volumeCost)));
 		root.appendChild(child);
-		
+
 		return root;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "PriceEvent"
