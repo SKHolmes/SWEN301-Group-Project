@@ -30,7 +30,7 @@ public class Graph {
 	}
 
 	private void addNode(Node newNode, Route r) {
-		Edge e = new Edge(newNode, new Node(r.getDestination()), r.getPrice(), r.getDuration());
+		Edge e = new Edge(newNode, new Node(r.getDestination()), r.getPrice(), r.getDuration(), r.);
 		newNode.addEdge(e);
 		nodes.add(newNode);
 	}

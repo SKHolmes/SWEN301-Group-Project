@@ -44,8 +44,10 @@ public class Djikstra {
 		for(Node n: graph){
 			n.setDistance(Integer.MAX_VALUE);
 			n.setPrevious(null);
+			if(start.equals(n)){
+				n.setDistance(0);
+			}
 		}
-		start.setDistance(0);
 		ArrayList<Node> unvisited = new ArrayList<Node>();
 		unvisited.addAll(graph);
 
@@ -58,7 +60,7 @@ public class Djikstra {
 				}
 			}
 			unvisited.remove(closest);
-			if(closest == goal){//We are done
+			if(closest.equals(goal)){//We are done
 				ArrayList<Edge> path = new ArrayList<Edge>();
 				while(closest.getPreviousEdge() != null){
 					Edge next = closest.getPreviousEdge();
@@ -86,12 +88,14 @@ public class Djikstra {
 	}
 
 
-	public ArrayList<Node> findShortestPathWithDuration(Node start, Node goal){
+	public ArrayList<Edge> findShortestPathWithDuration(Node start, Node goal){
 		for(Node n: graph){
 			n.setDistance(Integer.MAX_VALUE);
 			n.setPrevious(null);
+			if(start.equals(n)){
+				n.setDistance(0);
+			}
 		}
-		start.setDistance(0);
 		ArrayList<Node> unvisited = new ArrayList<Node>();
 		unvisited.addAll(graph);
 
@@ -104,13 +108,12 @@ public class Djikstra {
 				}
 			}
 			unvisited.remove(closest);
-			if(closest == goal){//We are done
-				ArrayList<Node> path = new ArrayList<Node>();
-				path.add(closest);
-				while(closest.getPrevious() != null){
-					Node next = closest.getPrevious();
+			if(closest.equals(goal)){//We are done
+				ArrayList<Edge> path = new ArrayList<Edge>();
+				while(closest.getPreviousEdge() != null){
+					Edge next = closest.getPreviousEdge();
 					path.add(next);
-					closest = next;
+					closest = next.getFrom();
 				}
 				Collections.reverse(path);
 				return path;
@@ -122,6 +125,7 @@ public class Djikstra {
 						if(cost < toNode.getDistance()){
 							toNode.setDistance(cost);
 							toNode.setPrevious(closest);
+							toNode.setPreviousEdge(e);
 						}
 					}
 				}
@@ -129,5 +133,21 @@ public class Djikstra {
 		}
 		System.out.println("Failed to find shortest path returning null.");;
 		return null;
+	}
+
+	public int totalDuration(ArrayList<Edge> path){
+		int duration = 0;
+		for(Edge e : path){
+			duration+=e.getDuration();
+		}
+		return duration;
+	}
+
+	public int totalPrice(ArrayList<Edge> path){
+		int price = 0;
+		for(Edge e : path){
+			price+=e.getPrice();
+		}
+		return price;
 	}
 }
