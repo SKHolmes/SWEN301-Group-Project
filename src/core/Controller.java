@@ -1,17 +1,11 @@
 package core;
 
-import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintStream;
-
 import javax.swing.JFrame;
 
-import events.CostEvent;
 import events.Event;
 
 public class Controller {
@@ -140,6 +134,7 @@ public class Controller {
 		    {
 				String user[] = line.split("\\|");
 				if(user[0].equals(text)){
+					reader.close();
 					return user[1];
 				}
 			}
@@ -147,6 +142,7 @@ public class Controller {
 		}catch(Exception e){
 			System.out.println("Error: " + e.getLocalizedMessage());
 		}
+		
 		return null;
 	}
 

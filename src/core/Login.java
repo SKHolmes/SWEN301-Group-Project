@@ -6,8 +6,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-import events.*;
-
 import java.awt.Font;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
