@@ -272,6 +272,7 @@ public class HistoryWindow implements WindowFocusListener, ItemListener{
 				//go to event number eventChooser.getValue()
 				index = (int) eventChooser.getValue();
 				index -=1;
+				model = new Model(subsetEvents.subList(0, index+1));
 				addBusinessFigures();
 				addContent(subsetEvents.get(index));
 			}
