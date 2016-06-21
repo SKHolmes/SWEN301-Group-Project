@@ -86,10 +86,10 @@ public class Model {
 	public String calcAmountOfMail(){
 		String s = "";
 		for(Route r : routes){
-			s += "Route: " + r.toString()
-				+ " \n\t Volume: " + r.getTotalVolume()
-				+ "\t Weight: " + r.getTotalWeight()
-				+ "\t # of Items: " + r.getTotalMailCount() + "\n";
+			s += " * Route: " + r.toString()
+				+ "/    Volume: " + r.getTotalVolume()
+				+ " Weight: " + r.getTotalWeight()
+				+ " # of Items: " + r.getTotalMailCount() + "/";
 		}
 		return s;
 	}
@@ -98,8 +98,8 @@ public class Model {
 		String s = "";
 		for(Route r : routes){
 			if(r.getTotalMailCount() > 0){
-				s += "Route: " + r.toString()
-					+ "\n\tAverage Delivery Time: " + r.getAverageDuration() + "\n";
+				s += " * Route: " + r.toString()
+					+ "/    Average Delivery Time: " + r.getAverageDuration() + "/";
 			}
 		}
 		return s;
@@ -108,7 +108,7 @@ public class Model {
 	public List<Route> calcCriticalRoutes(){
 		List<Route> criticalRoutes = new ArrayList<Route>();
 		for(Route r : routes){
-			if(r.getAverageCost() < r.getAveragePrice()){
+			if(r.getAverageCost() > r.getAveragePrice()){
 				criticalRoutes.add(r);
 			}
 		}
