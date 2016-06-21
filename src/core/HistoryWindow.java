@@ -33,6 +33,7 @@ import events.Event;
 import events.MailEvent;
 import events.PriceEvent;
 import events.TimeLimitEvent;
+import routes.Route;
 
 /**
  * @author george
@@ -211,9 +212,32 @@ public class HistoryWindow implements WindowFocusListener, ItemListener{
 		businessFiguresPanel.add(revenue);
 		businessFiguresPanel.add(expenditure);
 		businessFiguresPanel.add(nEvents);
+		
+		businessFiguresPanel.add(Box.createRigidArea(new Dimension(10,10)));
 		businessFiguresPanel.add(nMail);
+		String data = model.calcAmountOfMail();
+		String[] bits = data.split("/");
+		for(String s : bits){
+			JLabel label = new JLabel(s);
+			businessFiguresPanel.add(label);
+		    label.setText(s);
+		}
+		
+		businessFiguresPanel.add(Box.createRigidArea(new Dimension(10,10)));
 		businessFiguresPanel.add(avgDeliveryTimes);
+		data = model.calcAverageDeliveryTime();
+		bits = data.split("/");
+		for(String s : bits){
+			JLabel label = new JLabel(s);
+			businessFiguresPanel.add(label);
+		    label.setText(s);
+		}
+		businessFiguresPanel.add(Box.createRigidArea(new Dimension(10,10)));
 		businessFiguresPanel.add(critRoutes);
+		for(Route r : model.calcCriticalRoutes()){
+			JLabel label = new JLabel(" * "+r.toString());
+			businessFiguresPanel.add(label);
+		}
 	}
 
 	private void createNumSpinner() {
