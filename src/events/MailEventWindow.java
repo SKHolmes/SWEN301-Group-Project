@@ -45,14 +45,20 @@ public class MailEventWindow {
 		if(empty){
 			Popup.infoBox(dialog, "A field is empty!", "Error!");
 		}else{
-			MailEvent m = new MailEvent(dayField.getText().trim(),
-			toField.getText().trim(),
-			fromField.getText().trim(),
-			Integer.parseInt(weightField.getText().trim()),
-			Integer.parseInt(volumeField.getText().trim()),
-			priorityField.getText().trim());
-			
-			controller.addEvent(m);
+			MailEvent m = null;
+			try{
+				m = new MailEvent(dayField.getText().trim(),
+				toField.getText().trim(),
+				fromField.getText().trim(),
+				Integer.parseInt(weightField.getText().trim()),
+				Integer.parseInt(volumeField.getText().trim()),
+				priorityField.getText().trim());			
+			}catch(NumberFormatException e){
+				Popup.infoBox(dialog, "One of the fields contains incorrect characters!", "Error!");
+			}
+			if(m != null){
+				controller.addEvent(m);
+			}	
 		}
 	}
 

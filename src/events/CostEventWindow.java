@@ -50,19 +50,25 @@ public class CostEventWindow {
 		if(empty){
 			Popup.infoBox(dialog, "A field is empty!", "Error!");
 		}else{
-			CostEvent c = new CostEvent(companyField.getText().trim(),
-			toField.getText().trim(),
-			fromField.getText().trim(),
-			typeField.getText().trim(),
-			Integer.parseInt(weightCostField.getText().trim()),
-			Integer.parseInt(volumeCostField.getText().trim()),
-			Integer.parseInt(maxWeightField.getText().trim()),
-			Integer.parseInt(maxVolumeField.getText().trim()),
-			Integer.parseInt(durationField.getText().trim()),
-			Integer.parseInt(frequencyField.getText().trim()),
-			dayField.getText().trim());
-			
-			controller.addEvent(c);
+			CostEvent c = null;
+			try{
+				c = new CostEvent(companyField.getText().trim(),
+				toField.getText().trim(),
+				fromField.getText().trim(),
+				typeField.getText().trim(),
+				Integer.parseInt(weightCostField.getText().trim()),
+				Integer.parseInt(volumeCostField.getText().trim()),
+				Integer.parseInt(maxWeightField.getText().trim()),
+				Integer.parseInt(maxVolumeField.getText().trim()),
+				Integer.parseInt(durationField.getText().trim()),
+				Integer.parseInt(frequencyField.getText().trim()),
+				dayField.getText().trim());
+			}catch(NumberFormatException e){
+				Popup.infoBox(dialog, "One of the fields contains incorrect characters!", "Error!");
+			}
+			if(c != null){
+				controller.addEvent(c);
+			}			
 		}
 	}
 

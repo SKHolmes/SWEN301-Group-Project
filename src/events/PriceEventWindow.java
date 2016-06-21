@@ -45,13 +45,19 @@ public class PriceEventWindow {
 		if(empty){
 			Popup.infoBox(dialog, "A field is empty!", "Error!");
 		}else{
-			PriceEvent m = new PriceEvent(toField.getText().trim(),
-			fromField.getText().trim(),
-			priorityField.getText().trim(),
-			Integer.parseInt(weightCostField.getText().trim()),
-			Integer.parseInt(volumeCostField.getText().trim()));
-			
-			controller.addEvent(m);
+			PriceEvent p = null;
+			try{
+				p = new PriceEvent(toField.getText().trim(),
+				fromField.getText().trim(),
+				priorityField.getText().trim(),
+				Integer.parseInt(weightCostField.getText().trim()),
+				Integer.parseInt(volumeCostField.getText().trim()));			
+			}catch(NumberFormatException e){
+				Popup.infoBox(dialog, "One of the fields contains incorrect characters!", "Error!");
+			}
+			if(p != null){
+				controller.addEvent(p);
+			}	
 		}
 	}
 

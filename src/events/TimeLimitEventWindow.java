@@ -44,13 +44,18 @@ public class TimeLimitEventWindow {
 		if(empty){
 			Popup.infoBox(dialog, "A field is empty!", "Error!");
 		}else{
-			TimeLimitEvent t = new TimeLimitEvent(toField.getText().trim(),
-			fromField.getText().trim(),
-			priorityField.getText().trim(),
-			Integer.parseInt(maxDeliveryTimeField.getText().trim())
-			);
-			
-			controller.addEvent(t);
+			TimeLimitEvent t = null;
+			try{
+				t = new TimeLimitEvent(toField.getText().trim(),
+				fromField.getText().trim(),
+				priorityField.getText().trim(),
+				Integer.parseInt(maxDeliveryTimeField.getText().trim()));		
+			}catch(NumberFormatException e){
+				Popup.infoBox(dialog, "One of the fields contains incorrect characters!", "Error!");
+			}
+			if(t != null){
+				controller.addEvent(t);
+			}	
 		}
 	}
 
