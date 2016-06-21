@@ -12,6 +12,10 @@ public class Graph {
 		fillNodes(routes);
 		printNodes();
 	}
+	
+	public Graph(ArrayList<Node> nodes, int fuckthis){
+		this.nodes = nodes;
+	}
 
 	private void fillNodes(ArrayList<Route> routes) {
 		for(Route r : routes){
@@ -48,7 +52,7 @@ public class Graph {
 		return false;
 	}
 	
-	private void printNodes() {
+	public void printNodes() {
 		for(Node n : nodes){
 			n.printEdges();
 			System.out.println("-------------------------------------");

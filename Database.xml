@@ -1,4 +1,4 @@
-<simulation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="postal.xsd">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><simulation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="postal.xsd">
 <cost>
 <company>Air NZ</company>
 <to>Rome</to>
@@ -262,4 +262,4 @@
 <volume>5</volume>
 <priority>International Air</priority>
 </mail>
-</simulation>
+<mail><day>Sunday</day><to>Suva</to><from>Wellington</from><weight>6</weight><volume>10</volume><priority>Standard Air</priority></mail></simulation>

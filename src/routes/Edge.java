@@ -17,4 +17,20 @@ public class Edge {
 	public String toString(){
 		return "From: "+from.getName()+" To: "+to.getName()+" Price: "+price+" Duration: "+duration;
 	}
+	
+	public Node getFrom(){
+		return from;
+	}
+	
+	public Node getTo(){
+		return to;
+	}
+	
+	public int getPrice(){
+		return (int) price;
+	}
+	
+	public int getDuration(){
+		return (int) duration;
+	}
 }

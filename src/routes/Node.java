@@ -6,9 +6,9 @@ public class Node {
 
 	private String name;
 	
-	private boolean visited;
 	private ArrayList<Edge> edges;
-	
+	private int distance;
+	private Node previous;
 	
 	public Node(String n){
 		this.name = n;
@@ -33,12 +33,24 @@ public class Node {
 			System.out.println(e.toString());
 		}
 	}
-	
-	public void setVisited(boolean b){
-		visited = b;
+
+	public int getDistance() {
+		return distance;
+	}
+
+	public void setDistance(int distance) {
+		this.distance = distance;
+	}
+
+	public Node getPrevious() {
+		return previous;
+	}
+
+	public void setPrevious(Node previous) {
+		this.previous = previous;
 	}
 	
-	public boolean getVisited(){
-		return visited;
+	public ArrayList<Edge> getEdges(){
+		return edges;
 	}
 }
