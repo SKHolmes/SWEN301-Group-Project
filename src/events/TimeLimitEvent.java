@@ -1,5 +1,12 @@
 package events;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 public class TimeLimitEvent implements Event{
 
 	private String to;
@@ -71,14 +78,20 @@ public class TimeLimitEvent implements Event{
 		}
 
 		@Override
-		public String toXML() {
-			String xml = "<timelimit><to>"+to+"</to>";
-			xml.concat("<from>"+from+"</from>");
-			xml.concat("<priority>"+priority+"</priority>");
-			xml.concat("<maxDeliveryTime>"+maxDeliveryTime+"</maxDeliveryTime>");
-			xml.concat("</timelimit>");
-
-			return xml;
+		public Element toXML(Document d) {
+			Document doc = d;
+			Element root = doc.createElement("timelimit");
+			Element child = doc.createElement("to");
+			child.appendChild(doc.createTextNode(this.to));
+			root.appendChild(child);
+			child = doc.createElement("priority");
+			child.appendChild(doc.createTextNode(this.priority));
+			root.appendChild(child);
+			child = doc.createElement("maxDeliveryTime");
+			child.appendChild(doc.createTextNode(Integer.toString(this.maxDeliveryTime)));
+			root.appendChild(child);
+			
+			return root;
 		}
 		
 		@Override

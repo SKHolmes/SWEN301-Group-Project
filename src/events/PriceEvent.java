@@ -1,5 +1,12 @@
 package events;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 public class PriceEvent implements Event{
 
 	private String to;
@@ -99,17 +106,27 @@ public class PriceEvent implements Event{
 		this.volumeCost = volumeCost;
 	}
 
-	//We may need to specify linebreaks for XML interpretation
 	@Override
-	public String toXML() {
-		String xml = "<price><to>"+to+"</to>";
-		xml.concat("<from>"+from+"</from>");
-		xml.concat("<priority>"+priority+"</priority>");
-		xml.concat("<weightcost>"+weightCost+"</weightcost>");
-		xml.concat("<volumecost>"+volumeCost+"</volumecost>");
-		xml.concat("</price>");
-
-		return xml;
+	public Element toXML(Document d) {
+		Document doc = d;
+		Element root = doc.createElement("price");
+		Element child = doc.createElement("to");
+		child.appendChild(doc.createTextNode(this.to));
+		root.appendChild(child);
+		child = doc.createElement("from");
+		child.appendChild(doc.createTextNode(this.from));
+		root.appendChild(child);
+		child = doc.createElement("priority");
+		child.appendChild(doc.createTextNode(this.priority));
+		root.appendChild(child);
+		child = doc.createElement("weightcost");
+		child.appendChild(doc.createTextNode(Integer.toString(this.weightCost)));
+		root.appendChild(child);
+		child = doc.createElement("volumecost");
+		child.appendChild(doc.createTextNode(Integer.toString(this.volumeCost)));
+		root.appendChild(child);
+		
+		return root;
 	}
 	
 	@Override

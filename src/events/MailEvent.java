@@ -1,5 +1,12 @@
 package events;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 public class MailEvent implements Event{
 
 	private String day;
@@ -104,17 +111,31 @@ public class MailEvent implements Event{
 		this.priority = priority;
 	}
 
-	//We may need to specify linebreaks for XML interpretation
 	@Override
-	public String toXML() {
-		String xml = "<mail><day>"+day+"</day>";
-		xml.concat("<to>"+to+"</to>");
-		xml.concat("<from>"+from+"</from>");
-		xml.concat("<weight>"+weight+"</weight>");
-		xml.concat("<volume>"+volume+"</volume>");
-		xml.concat("<priority>"+priority+"</priority>");
-		xml.concat("</mail>");
-		return xml;
+	public Element toXML(Document d){
+
+		Document doc = d;
+		Element root = doc.createElement("mail");
+		Element child = doc.createElement("day");
+		child.appendChild(doc.createTextNode(this.day));
+		root.appendChild(child);
+		child = doc.createElement("to");
+		child.appendChild(doc.createTextNode(this.to));
+		root.appendChild(child);
+		child = doc.createElement("from");
+		child.appendChild(doc.createTextNode(this.from));
+		root.appendChild(child);
+		child = doc.createElement("weight");
+		child.appendChild(doc.createTextNode(Integer.toString(this.weight)));
+		root.appendChild(child);
+		child = doc.createElement("volume");
+		child.appendChild(doc.createTextNode(Integer.toString(this.volume)));
+		root.appendChild(child);
+		child = doc.createElement("priority");
+		child.appendChild(doc.createTextNode(this.priority));
+		root.appendChild(child);
+		
+		return root;
 	}
 	
 	public String toString() {

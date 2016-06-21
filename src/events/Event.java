@@ -1,5 +1,8 @@
 package events;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 public interface Event {
 
 	/** Returns an XML representation of the given event
@@ -7,7 +10,7 @@ public interface Event {
 	 * @return String
 	 */
 
-	public String toXML();
-	public String toString();
+	public Element toXML(Document doc);
+
 
 }
