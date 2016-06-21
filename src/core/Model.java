@@ -23,6 +23,17 @@ public class Model {
 		revenue = 0;
 		expenditure = 0;
 	}
+	
+	public Model(List<Event> eventsToAdd){
+		events = new ArrayList<Event>();
+		routes = new ArrayList<Route>();
+		revenue = 0;
+		expenditure = 0;
+		
+		for(Event e : eventsToAdd){
+			addEvent(e);
+		}
+	}
 
 	public void printAllStats(){
 		System.out.println();

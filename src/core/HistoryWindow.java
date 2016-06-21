@@ -42,6 +42,7 @@ public class HistoryWindow implements WindowFocusListener, ItemListener{
 
 	private JFrame mainFrame;
 	private JPanel contentPanel;
+	private JPanel businessFiguresPanel;
 	private JPanel controlPanel;
 	private JButton forwardButton;
 	private JButton backButton;
@@ -63,6 +64,7 @@ public class HistoryWindow implements WindowFocusListener, ItemListener{
 	private JButton eventNumButton;
 	private int minIndex;
 	private int maxIndex;
+	private Model model;
 	
 	public HistoryWindow(MainScreen mainScreen) {
 		index = 0;
@@ -76,14 +78,15 @@ public class HistoryWindow implements WindowFocusListener, ItemListener{
 		showMailEvents = true;
 		showPriceEvents = true;
 		showTimeLimitEvents = true;
+		model = new Model(subsetEvents.subList(0, index+1));
 		
 		initialize();
 	}
 
 	private void initialize() {
 		mainFrame = new JFrame("History");
-		mainFrame.setSize(520, 400);
-		mainFrame.setLayout(new GridLayout(1, 2));
+		mainFrame.setSize(780, 400);
+		mainFrame.setLayout(new GridLayout(1, 3));
 		mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		mainFrame.addWindowFocusListener(this);
 		
@@ -94,6 +97,11 @@ public class HistoryWindow implements WindowFocusListener, ItemListener{
 	    contentPanel = new JPanel();
 	    contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
 	    contentPanel.setBorder(BorderFactory.createTitledBorder("Event Information"));
+	    
+	    businessFiguresPanel = new JPanel();
+	    businessFiguresPanel.setLayout(new BoxLayout(businessFiguresPanel, BoxLayout.Y_AXIS));
+	    businessFiguresPanel.setBorder(BorderFactory.createTitledBorder("Business Figures"));
+	    
 	    //if the passed in array of events is zero
 	    if(allEvents.size() < 1){
 	    	displayError("No history to view");
@@ -179,13 +187,35 @@ public class HistoryWindow implements WindowFocusListener, ItemListener{
 				TitledBorder.TOP));
 	    controlPanel.add(filterPanel);
 	    
+	    //add stuff to business figure panel
+	    addBusinessFigures();
+	    
 	    //add panels to main window
 	    mainFrame.add(controlPanel);
 	    mainFrame.add(contentPanel);
+	    mainFrame.add(businessFiguresPanel);
 	    
 	    mainFrame.setVisible(true);
 	}
 	
+	private void addBusinessFigures() {
+		businessFiguresPanel.removeAll();
+		
+		JLabel revenue = new JLabel("Expenditure: " + model.getRevenue());
+		JLabel expenditure = new JLabel("Revenue: " + model.getExpenditure());
+		JLabel nEvents = new JLabel("Number of Events: " + model.getNumberOfEvents());
+		JLabel nMail = new JLabel("Number of Mail: ");
+		JLabel avgDeliveryTimes = new JLabel("Average Delivery Times: ");
+		JLabel critRoutes = new JLabel("Critical Routes: ");
+		
+		businessFiguresPanel.add(revenue);
+		businessFiguresPanel.add(expenditure);
+		businessFiguresPanel.add(nEvents);
+		businessFiguresPanel.add(nMail);
+		businessFiguresPanel.add(avgDeliveryTimes);
+		businessFiguresPanel.add(critRoutes);
+	}
+
 	private void createNumSpinner() {
 		SpinnerNumberModel numberModel = new SpinnerNumberModel(new Integer(minIndex), 
 				new Integer(minIndex), new Integer(maxIndex), new Integer(1));
@@ -201,11 +231,15 @@ public class HistoryWindow implements WindowFocusListener, ItemListener{
 			if(command.equals("forward")){
 				//go forward in history
 				index+=1;
+				model = new Model(subsetEvents.subList(0, index+1));
+				addBusinessFigures();
 				addContent(subsetEvents.get(index));
 			}
 			else if(command.equals("back")){
 				//go back in history
 				index-=1;
+				model = new Model(subsetEvents.subList(0, index+1));
+				addBusinessFigures();
 				addContent(subsetEvents.get(index));
 			}
 			else if(command.equals("goTo")){
