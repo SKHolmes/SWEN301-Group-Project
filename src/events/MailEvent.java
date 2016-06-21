@@ -90,7 +90,7 @@ public class MailEvent implements Event{
 	}
 
 	public void updateRouteStats(ArrayList<Event> events, Route r){
-		if(r != null){
+		if(r != null && calculateCost(events, r) != 0){
 			r.addToTotalCost(calculateCost(events, r));
 			r.addToTotalPrice(calculatePrice(events, r));
 			r.addToTotalVolume((double)this.getVolume());
