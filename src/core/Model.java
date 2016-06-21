@@ -23,13 +23,13 @@ public class Model {
 		revenue = 0;
 		expenditure = 0;
 	}
-	
+
 	public Model(List<Event> eventsToAdd){
 		events = new ArrayList<Event>();
 		routes = new ArrayList<Route>();
 		revenue = 0;
 		expenditure = 0;
-		
+
 		for(Event e : eventsToAdd){
 			addEvent(e);
 		}
@@ -49,9 +49,7 @@ public class Model {
 		System.out.println("Amount of Mail: \n" + this.calcAmountOfMail() + "\n");
 		System.out.println("Average Delivery Time: \n" + this.calcAverageDeliveryTime() + "\n");
 		System.out.println("Critical Routes: ");
-		for(Route r : this.calcCriticalRoutes()){
-			System.out.println("\t" + r);
-		}
+		System.out.println(this.criticalRoutesToString(this.calcCriticalRoutes()));
 	}
 
 	public void addEvent(Event e){
@@ -113,6 +111,15 @@ public class Model {
 			}
 		}
 		return criticalRoutes;
+	}
+
+	public String criticalRoutesToString(List<Route> routes){
+		String s = "";
+		for(Route r : routes){
+			s+= " * " + r.toString() + "   Loss: $" + (r.getAveragePrice() - r.getAverageCost()) * -1 + "/";
+		}
+
+		return s;
 	}
 
 	public double getExpenditure(){
