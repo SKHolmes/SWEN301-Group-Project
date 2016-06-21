@@ -76,8 +76,10 @@ public class Model {
 		if(e instanceof MailEvent){
 			MailEvent mailEvent = (MailEvent)e;
 			mailEvent.updateRouteStats(events, mailEvent.findRoute(routes));
-			expenditure += mailEvent.calculateCost(events, mailEvent.findRoute(routes));
-			revenue += mailEvent.calculatePrice(events, mailEvent.findRoute(routes)) - expenditure;
+			if(mailEvent.calculateCost(events, mailEvent.findRoute(routes)) != 0){
+				expenditure += mailEvent.calculateCost(events, mailEvent.findRoute(routes));
+				revenue += mailEvent.calculatePrice(events, mailEvent.findRoute(routes)) - expenditure;
+			}
 		}
 	}
 
