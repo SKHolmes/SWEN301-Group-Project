@@ -272,7 +272,7 @@ public class HistoryWindow implements WindowFocusListener, ItemListener{
 				//go to event number eventChooser.getValue()
 				index = (int) eventChooser.getValue();
 				index -=1;
-				System.out.println( (int) eventChooser.getValue());
+				addBusinessFigures();
 				addContent(subsetEvents.get(index));
 			}
 
