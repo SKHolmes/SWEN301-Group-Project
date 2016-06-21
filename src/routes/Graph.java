@@ -3,16 +3,16 @@ package routes;
 import java.util.ArrayList;
 
 public class Graph {
-	
+
 
 	private ArrayList<Node> nodes;
-	
+
 	public Graph(ArrayList<Route> routes){
 		nodes = new ArrayList<Node>();
 		fillNodes(routes);
 		printNodes();
 	}
-	
+
 	public Graph(ArrayList<Node> nodes, int fuckthis){
 		this.nodes = nodes;
 	}
@@ -51,15 +51,18 @@ public class Graph {
 		}
 		return false;
 	}
-	
+
 	public void printNodes() {
 		for(Node n : nodes){
 			n.printEdges();
 			System.out.println("-------------------------------------");
 		}
-		
+
 	}
-	
+
+	public ArrayList<Node> getNodes(){
+		return this.nodes;
+	}
+
 }
 
-	

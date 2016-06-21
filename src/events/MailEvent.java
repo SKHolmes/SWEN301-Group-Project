@@ -2,6 +2,10 @@ package events;
 
 import java.util.ArrayList;
 
+import routes.Djikstra;
+import routes.Edge;
+import routes.Graph;
+import routes.Node;
 import routes.Route;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -34,6 +38,21 @@ public class MailEvent implements Event{
 			}
 		}
 		return null;
+	}
+
+	public double calcCost(ArrayList<Event> events, Graph g, Route r){
+		if(r != null){
+			Djikstra d = new Djikstra(g.getNodes());
+			ArrayList<Edge> edges = d.findShortestPathWithPrice(new Node(r.getOrigin()), new Node(r.getDestination()));
+			double x = 0;
+			if(edges != null){
+				for(Edge e : edges){
+					x += calculateCost(events, r);
+				}
+				return x;
+			}
+		}
+		return -1;
 	}
 
 	public double calculateCost(ArrayList<Event> events, Route r){
@@ -167,10 +186,10 @@ public class MailEvent implements Event{
 		child = doc.createElement("priority");
 		child.appendChild(doc.createTextNode(this.priority));
 		root.appendChild(child);
-		
+
 		return root;
 	}
-	
+
 	public String toString() {
 		return "MailEvent"
 				+ "/Day: " + day

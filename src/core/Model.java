@@ -7,12 +7,14 @@ import events.CostEvent;
 import events.DiscontinueEvent;
 import events.Event;
 import events.MailEvent;
+import routes.Graph;
 import routes.Route;
 
 public class Model {
 	private ArrayList<Event> events;
 	private ArrayList<Route> routes;
 	//private BusinessFigures businessFigures;
+	private Graph graph;
 	private double revenue;
 	private double expenditure;
 
@@ -73,12 +75,16 @@ public class Model {
 
 		if(e instanceof MailEvent){
 			MailEvent mailEvent = (MailEvent)e;
+			double x = mailEvent.calcCost(events, new Graph(routes), mailEvent.findRoute(routes));
+			System.out.println("COST: " + x);
+			//mailEvent.updateRouteStats(events, mailEvent.calcCost(new Graph(routes), mailEvent.findRoute(routes)));
 			mailEvent.updateRouteStats(events, mailEvent.findRoute(routes));
 			if(mailEvent.calculateCost(events, mailEvent.findRoute(routes)) != 0){
 				expenditure += mailEvent.calculateCost(events, mailEvent.findRoute(routes));
 				revenue += mailEvent.calculatePrice(events, mailEvent.findRoute(routes)) - expenditure;
 			}
 		}
+		graph = new Graph(routes);
 	}
 
 	public String calcAmountOfMail(){
