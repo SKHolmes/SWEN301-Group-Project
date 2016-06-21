@@ -68,10 +68,8 @@ public class Route {
 	public void addToDuration(double d){
 		this.duration += d;
 	}
-
-
 	public String toString(){
-		return this.origin + " to " + this.destination + " via " + this.type + " with " + this.company;
+		return "[r: "+this.origin+"->"+this.destination+"]";
 	}
 
 	/////////////////////////////
@@ -109,5 +107,8 @@ public class Route {
 	}
 	public double getTotalMailCount() {
 		return totalMailCount;
+	}
+	public boolean equals(Route r){
+		return this.origin.equals(r.getOrigin()) && this.destination.equals(r.getDestination());
 	}
 }
