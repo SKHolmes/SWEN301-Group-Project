@@ -110,4 +110,10 @@ public class Route {
 	public double getTotalMailCount() {
 		return totalMailCount;
 	}
+	public double getPrice() {
+		return this.totalPrice;
+	}
+	public double getDuration() {
+		return this.duration;
+	}
 }
