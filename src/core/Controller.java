@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import events.Event;
 
 public class Controller {
-	
+
 	public enum Events{
 		COST, MAIL, DISCONTINUE, PRICE, TIMELIMIT;
 	}
@@ -17,9 +17,11 @@ public class Controller {
 	private Login loginWindow;
 	private MainScreen mainScreenWindow;
 	private XMLParser parser;
+	private XMLWriter writer;
 
 	public Controller(Login view){
 		this.loginWindow = view;
+		this.writer = new XMLWriter();
 /*		System.out.println("Working Directory = " +
 	              System.getProperty("user.dir"));*/
 	}
@@ -142,20 +144,21 @@ public class Controller {
 		}catch(Exception e){
 			System.out.println("Error: " + e.getLocalizedMessage());
 		}
-		
+
 		return null;
 	}
 
 	public void addEvent(Event e){
 		parser.addEvent(e);
+		writer.appendEvent(e.toXML(writer.getDoc()));
 	}
 
 
 
 	public void setXMLParser(XMLParser parser) {
-		this.parser = parser;		
+		this.parser = parser;
 	}
-	
+
 	public MainScreen getMainScreen(){
 		return this.mainScreenWindow;
 	}
