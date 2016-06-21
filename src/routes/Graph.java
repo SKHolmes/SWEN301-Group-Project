@@ -56,16 +56,6 @@ public class Graph {
 		
 	}
 	
-	public static void main(String[] args){
-		ArrayList<Route> routes = new ArrayList<Route>();
-		routes.add(new Route("A", "B", "some type", "Air Company"));
-		routes.add(new Route("B", "C", "some type", "Air Company"));
-		routes.add(new Route("C", "D", "some type", "Air Company"));
-		routes.add(new Route("B", "D", "some type", "Air Company"));
-		routes.add(new Route("D", "A", "some type", "Air Company"));
-		
-		Graph g = new Graph(routes);
-	}
 }
 
 	

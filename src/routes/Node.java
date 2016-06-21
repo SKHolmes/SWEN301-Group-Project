@@ -33,4 +33,12 @@ public class Node {
 			System.out.println(e.toString());
 		}
 	}
+	
+	public void setVisited(boolean b){
+		visited = b;
+	}
+	
+	public boolean getVisited(){
+		return visited;
+	}
 }
